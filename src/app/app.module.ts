@@ -48,7 +48,6 @@ import { FirebaseAvatarSelect } from '../pages/firebase-integration/firebase-ava
 import { FirebaseProfilePage } from '../pages/firebase-integration/firebase-profile/firebase-profile';
 import { FirebaseSignupPage } from '../pages/firebase-integration/firebase-signup/firebase-signup';
 import { FirebaseLoginPage } from '../pages/firebase-integration/firebase-login/firebase-login';
-import { FirebaseTabsNavigationPage } from '../pages/firebase-integration/firebase-tabs-navigation/firebase-tabs-navigation';
 //wordpress integration
 import { BlogFeedPage } from '../pages/wordpress-integration/blog-feed/blog-feed';
 import { BlogPostPage } from '../pages/wordpress-integration/blog-post/blog-post';

@@ -77,18 +77,6 @@ export class FirebaseSignupPage {
       })
   }
 
-  // doSignup(value) {
-  //   this.loading = this.loadingCtrl.create();
-  //   this.fAuthService.doRegister(value)
-  //     .then(res => {
-  //       this.fAuthService.doLogin(value)
-  //         .then(res => {
-  //           this.nav.push(FirebaseTabsNavigationPage);
-  //           this.loading.dismiss();
-  //         }, error => this.errorMessage = error.message)
-  //     }, err => this.errorMessage = err.message)
-  // }
-
   showTermsModal() {
     let modal = this.modal.create(TermsOfServicePage);
     modal.present();
