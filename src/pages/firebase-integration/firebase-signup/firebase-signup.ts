@@ -103,7 +103,7 @@ export class FirebaseSignupPage {
     this.loading = this.loadingCtrl.create();
     this.fAuthService.doFacebookLogin()
       .then((res) => {
-        this.nav.push(FirebaseTabsNavigationPage);
+        this.nav.push(TabsNavigationPage);
         this.loading.dismiss();
       }, (err) => {
         this.errorMessage = err.message;
@@ -114,7 +114,7 @@ export class FirebaseSignupPage {
     this.loading = this.loadingCtrl.create();
     this.fAuthService.doGoogleLogin()
       .then((data) => {
-        this.nav.push(FirebaseTabsNavigationPage);
+        this.nav.push(TabsNavigationPage);
         this.loading.dismiss();
       }, (err) => {
         this.errorMessage = err.message;
@@ -125,7 +125,7 @@ export class FirebaseSignupPage {
     this.loading = this.loadingCtrl.create();
     this.fAuthService.doTwitterLogin()
       .then((data) => {
-        this.nav.push(FirebaseTabsNavigationPage);
+        this.nav.push(TabsNavigationPage);
         this.loading.dismiss();
       }, (err) => {
         this.errorMessage = err.message;
