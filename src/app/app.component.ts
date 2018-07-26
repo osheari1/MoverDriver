@@ -15,6 +15,10 @@ import { WordpressMenuPage } from '../pages/wordpress-integration/wordpress-menu
 
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
+// Firebase Auth
+import { AngularFireAuth } from 'angularfire2/auth';
+
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.html'
@@ -24,8 +28,10 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // make WalkthroughPage the root (or first) page
-  rootPage: any = WalkthroughPage;
+  // rootPage: any = WalkthroughPage;
+  rootPage: any;
   // rootPage: any = TabsNavigationPage;
+
   textDir: string = "ltr";
 
   pages: Array<{title: any, icon: string, component: any}>;
@@ -38,10 +44,25 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public statusBar: StatusBar,
     public translate: TranslateService,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public afAuth: AngularFireAuth
   ) {
+
+    // If the user is already logged in, will send to home page
+    const authListener = afAuth.authState.subscribe(
+     userCredential => {
+       if (userCredential) {
+         this.rootPage = TabsNavigationPage;
+         authListener.unsubscribe();
+       } else {
+         this.rootPage = WalkthroughPage;
+         authListener.unsubscribe();
+       }
+     });
+
     translate.setDefaultLang('en');
     translate.use('en');
+
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.

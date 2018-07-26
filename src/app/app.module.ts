@@ -113,6 +113,22 @@ export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
+// Create mock camera class to allow 'camera' to be used in browser
+// REMOVE BEFORE DEPLOY
+// class CameraMock extends Camera {
+//   getPicture(options) {
+//     return new Promise( (resolve, reject) => {
+//       resolve(`TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx
+//         5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlzIHNpbmd1b
+//         GFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGl
+//         jaCBpcyBhIGx1c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgY
+//         SBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29
+//         udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb
+//         24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRoZSBzaG9ydCB
+//         2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4=`);
+//       });
+//   }
+// }
 
 @NgModule({
   declarations: [
@@ -285,7 +301,7 @@ export function createTranslateLoader(http: HttpClient) {
 		AppRate,
 		ImagePicker,
 		Crop,
-		EmailComposer
+		EmailComposer,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

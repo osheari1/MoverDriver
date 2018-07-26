@@ -18,10 +18,9 @@
     <button ion-button block class="auth-action-button signup-button" type="submit" [disabled]="!signup.valid">{{'SIGN_UP' | translate}}</button>
   </form>
   <label class="error-message">{{errorMessage}}</label>
-  <p class="auth-divider">
-    Or
+
+  <p class="legal-stuff">
+    {{'AGREEMENT_TEXT' | translate}} <a class="legal-action" (click)="showPrivacyModal()">{{'PRIVACY_POLICY' | translate}}</a>    {{'AND' | translate}} <a class="legal-action" (click)="showTermsModal()">{{'TERMS_OF_USE' | translate}}</a>
   </p>
-  <button ion-button block class="facebook-auth-button" (click)="doFacebookSignup()">{{'SIGN_UP_WITH_FACEBOOK' | translate}}</button>
-  <button ion-button block class="google-auth-button" (click)="doGoogleSignup()">{{'SIGN_UP_WITH_GOOGLE' | translate}}</button>
-  <button ion-button block class="twitter-auth-button" (click)="doTwitterSignup()">{{'SIGN_UP_WITH_TWITTER' | translate}}</button>
+
 </ion-content>

@@ -1,8 +1,29 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
-import { Validators, FormGroup, FormControl } from '@angular/forms';
-import { FirebaseTabsNavigationPage } from '../firebase-tabs-navigation/firebase-tabs-navigation';
+import {
+  NavController,
+  ModalController,
+  LoadingController,
+  Alert,
+  AlertController
+} from 'ionic-angular';
+
+import {
+  Validators,
+  FormGroup,
+  FormControl,
+  // FormBuilder
+} from '@angular/forms';
+import { EmailValidator } from '../../../validators/email';
+
+import { TermsOfServicePage } from '../../terms-of-service/terms-of-service';
+import { PrivacyPolicyPage } from '../../privacy-policy/privacy-policy';
+
+// import { FirebaseTabsNavigationPage } from '../firebase-tabs-navigation/firebase-tabs-navigation';
+import { TabsNavigationPage } from '../../tabs-navigation/tabs-navigation';
 import { FirebaseAuthService } from '../firebase-auth.service';
+
+
+
 
 @Component({
   selector: 'firebase-signup-page',
@@ -15,59 +36,100 @@ export class FirebaseSignupPage {
 
   constructor(
     public nav: NavController,
+    public modal: ModalController,
     public loadingCtrl: LoadingController,
-    public fAuthService: FirebaseAuthService
+    public fAuthService: FirebaseAuthService,
+    public alertCtrl: AlertController
+    // formBuilder: FormBuilder
   ) {
 
     this.signup = new FormGroup({
-      email: new FormControl('', Validators.required),
-      password: new FormControl('test', Validators.required)
+      email: new FormControl('',
+        Validators.compose([Validators.required, EmailValidator.isValid])),
+      password: new FormControl('test',
+        Validators.compose([Validators.minLength(6), Validators.required])
+      )
     });
   }
 
-  doSignup(value){
+
+
+  doSignup(value) {
     this.loading = this.loadingCtrl.create();
     this.fAuthService.doRegister(value)
-    .then(res => {
-      this.fAuthService.doLogin(value)
       .then(res => {
-        this.nav.push(FirebaseTabsNavigationPage);
-        this.loading.dismiss();
-      }, error => this.errorMessage = error.message)
-    }, err => this.errorMessage = err.message)
+        this.loading.dismiss().then(() => {
+          this.nav.setRoot(TabsNavigationPage);
+          }
+        )
+      }, err => {
+        this.errorMessage = err.message
+        const alert: Alert = this.alertCtrl.create({
+          message: this.errorMessage,
+          buttons: [
+            {
+              text: 'OK',
+              role: 'cancel'
+            }
+          ]
+        });
+        alert.present();
+      })
+  }
+
+  // doSignup(value) {
+  //   this.loading = this.loadingCtrl.create();
+  //   this.fAuthService.doRegister(value)
+  //     .then(res => {
+  //       this.fAuthService.doLogin(value)
+  //         .then(res => {
+  //           this.nav.push(FirebaseTabsNavigationPage);
+  //           this.loading.dismiss();
+  //         }, error => this.errorMessage = error.message)
+  //     }, err => this.errorMessage = err.message)
+  // }
+
+  showTermsModal() {
+    let modal = this.modal.create(TermsOfServicePage);
+    modal.present();
+  }
+
+  showPrivacyModal() {
+    let modal = this.modal.create(PrivacyPolicyPage);
+    modal.present();
   }
 
   doFacebookSignup() {
     this.loading = this.loadingCtrl.create();
     this.fAuthService.doFacebookLogin()
-    .then((res) => {
-      this.nav.push(FirebaseTabsNavigationPage);
-      this.loading.dismiss();
-    }, (err) => {
-      this.errorMessage = err.message;
-    });
+      .then((res) => {
+        this.nav.push(FirebaseTabsNavigationPage);
+        this.loading.dismiss();
+      }, (err) => {
+        this.errorMessage = err.message;
+      });
   }
 
   doGoogleSignup() {
     this.loading = this.loadingCtrl.create();
     this.fAuthService.doGoogleLogin()
-    .then((data) => {
-       this.nav.push(FirebaseTabsNavigationPage);
-       this.loading.dismiss();
-    }, (err) => {
+      .then((data) => {
+        this.nav.push(FirebaseTabsNavigationPage);
+        this.loading.dismiss();
+      }, (err) => {
         this.errorMessage = err.message;
-    });
+      });
   }
 
-  doTwitterSignup(){
+  doTwitterSignup() {
     this.loading = this.loadingCtrl.create();
     this.fAuthService.doTwitterLogin()
-    .then((data) => {
-      this.nav.push(FirebaseTabsNavigationPage);
-      this.loading.dismiss();
-    }, (err) => {
+      .then((data) => {
+        this.nav.push(FirebaseTabsNavigationPage);
+        this.loading.dismiss();
+      }, (err) => {
         this.errorMessage = err.message;
-    });
+      });
   }
 
 }

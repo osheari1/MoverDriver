@@ -26,7 +26,7 @@ export class FirebaseAuthService {
     // this.fb.browserInit(this.FB_APP_ID, "v2.8");
   }
 
-  doLogin(value){
+  doLogin(value): Promise<any> {
    return new Promise<any>((resolve, reject) => {
      firebase.auth().signInWithEmailAndPassword(value.email, value.password)
      .then(res => {
@@ -35,8 +35,7 @@ export class FirebaseAuthService {
    })
   }
 
-  doLogout()
-  {
+  doLogout(): Promise<any> {
     return new Promise((resolve, reject) => {
       if(firebase.auth().currentUser){
         this.afAuth.auth.signOut()
@@ -48,7 +47,7 @@ export class FirebaseAuthService {
     });
   }
 
-  getCurrentUser(){
+  getCurrentUser(): Promise<any> {
    return new Promise<any>((resolve, reject) => {
      firebase.auth().onAuthStateChanged(function(user){
        let userModel = {
@@ -151,14 +150,24 @@ export class FirebaseAuthService {
     })
   }
 
-  doRegister(value){
+
+  doRegister(value): Promise<any> {
    return new Promise<any>((resolve, reject) => {
-     firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
+     this.afAuth.auth.createUserWithEmailAndPassword(value.email, value.password)
      .then(res => {
        resolve(res);
      }, err => reject(err))
    })
   }
+
+  // doRegister(value): Promise<any> {
+  //  return new Promise<any>((resolve, reject) => {
+  //    firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
+  //    .then(res => {
+  //      resolve(res);
+  //    }, err => reject(err))
+  //  })
+  // }
 
   doFacebookLogin(){
     return new Promise<any>((resolve, reject) => {
