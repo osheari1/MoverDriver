@@ -1,9 +1,19 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
-import { Validators, FormGroup, FormControl } from '@angular/forms';
+import {
+  NavController,
+  LoadingController,
+  Alert,
+  AlertController
+} from 'ionic-angular';
+import {
+  Validators,
+  FormGroup,
+  FormControl,
+} from '@angular/forms';
+import { EmailValidator } from '../../../validators/email';
 
+import { ForgotPasswordPage } from '../../forgot-password/forgot-password';
 import { TabsNavigationPage } from '../../tabs-navigation/tabs-navigation';
-
 import { FirebaseSignupPage } from '../firebase-signup/firebase-signup';
 import { FirebaseAuthService } from '../firebase-auth.service';
 
@@ -19,20 +29,47 @@ export class FirebaseLoginPage {
   constructor(
     public nav: NavController,
     public loadingCtrl: LoadingController,
-    public fAuthService: FirebaseAuthService
+    public fAuthService: FirebaseAuthService,
+    public alertCtrl: AlertController
   ) {
     this.login = new FormGroup({
-      email: new FormControl('', Validators.required),
-      password: new FormControl('test', Validators.required)
+      email: new FormControl('',
+        Validators.compose([Validators.required, EmailValidator.isValid])),
+      password: new FormControl('test',
+        Validators.compose([Validators.minLength(6), Validators.required])
+      )
     });
   }
 
   doLogin(value){
     this.fAuthService.doLogin(value)
-    .then(res =>{
-      this.nav.push(TabsNavigationPage);
-    }, err => this.errorMessage = err.message)
+      .then(res =>{
+        this.loading.dismiss().then(() => {
+          this.nav.setRoot(TabsNavigationPage);
+        })
+      }, err => {
+        this.errorMessage = err.message
+        const alert: Alert = this.alertCtrl.create({
+          message: this.errorMessage,
+          buttons: [
+            {
+              text: 'OK',
+              role: 'cancel'
+            }
+          ]
+        });
+        alert.present();
+      })
+      this.loading = this.loadingCtrl.create();
+      this.loading.present();
   }
+
+  // doLogin(value){
+  //   this.fAuthService.doLogin(value)
+  //   .then(res =>{
+  //     this.nav.push(TabsNavigationPage);
+  //   }, err => this.errorMessage = err.message)
+  // }
 
   doFacebookLogin() {
     this.loading = this.loadingCtrl.create();
@@ -69,5 +106,9 @@ export class FirebaseLoginPage {
 
   goToSignup() {
     this.nav.push(FirebaseSignupPage);
+  }
+
+  goToForgotPassword() {
+    this.nav.push(ForgotPasswordPage);
   }
 }

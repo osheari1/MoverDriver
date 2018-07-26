@@ -17,17 +17,17 @@
     <button ion-button block class="auth-action-button login-button" type="submit" [disabled]="!login.valid">{{'LOG_IN' | translate}}</button>
   </form>
   <ion-row class="alt-options">
-    <ion-col no-padding width-50>
+    <!-- <ion-col no-padding width-50>
+    </ion-col> -->
+    <!-- Forgot password button  -->
+    <ion-col no-padding>
+      <button ion-button block clear (click)="goToResetPassword()">
+        I forgot my password.
+      </button>
     </ion-col>
-    <ion-col no-padding width-50>
+    <!-- <ion-col no-padding width-50>
       <button ion-button block clear class="signup-button" (click)="goToSignup()">{{'SIGN_UP!' | translate}}</button>
-    </ion-col>
+    </ion-col> -->
   </ion-row>
-  <label class="error-message">{{errorMessage}}</label>
-  <!-- <p class="auth-divider">
-    Or
-  </p>
-  <button ion-button block class="facebook-auth-button" (click)="doFacebookLogin()">Log in with Facebook</button>
-  <button ion-button block class="google-auth-button" (click)="doGoogleLogin()">Log in with Google</button>
-  <button ion-button block class="twitter-auth-button" (click)="doTwitterLogin()">Log in with Twitter</button> -->
+
 </ion-content>

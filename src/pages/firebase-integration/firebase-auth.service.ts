@@ -160,14 +160,6 @@ export class FirebaseAuthService {
    })
   }
 
-  // doRegister(value): Promise<any> {
-  //  return new Promise<any>((resolve, reject) => {
-  //    firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
-  //    .then(res => {
-  //      resolve(res);
-  //    }, err => reject(err))
-  //  })
-  // }
 
   doFacebookLogin(){
     return new Promise<any>((resolve, reject) => {

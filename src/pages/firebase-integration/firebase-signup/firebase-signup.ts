@@ -11,7 +11,6 @@ import {
   Validators,
   FormGroup,
   FormControl,
-  // FormBuilder
 } from '@angular/forms';
 import { EmailValidator } from '../../../validators/email';
 
@@ -40,7 +39,6 @@ export class FirebaseSignupPage {
     public loadingCtrl: LoadingController,
     public fAuthService: FirebaseAuthService,
     public alertCtrl: AlertController
-    // formBuilder: FormBuilder
   ) {
 
     this.signup = new FormGroup({
@@ -53,9 +51,7 @@ export class FirebaseSignupPage {
   }
 
 
-
   doSignup(value) {
-    this.loading = this.loadingCtrl.create();
     this.fAuthService.doRegister(value)
       .then(res => {
         this.loading.dismiss().then(() => {
@@ -75,6 +71,8 @@ export class FirebaseSignupPage {
         });
         alert.present();
       })
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
   }
 
   showTermsModal() {
