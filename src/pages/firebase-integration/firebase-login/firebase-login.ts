@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
+
+import { TabsNavigationPage } from '../../tabs-navigation/tabs-navigation';
+
 import { FirebaseSignupPage } from '../firebase-signup/firebase-signup';
-import { FirebaseTabsNavigationPage } from '../firebase-tabs-navigation/firebase-tabs-navigation';
 import { FirebaseAuthService } from '../firebase-auth.service';
 
 @Component({
@@ -28,7 +30,7 @@ export class FirebaseLoginPage {
   doLogin(value){
     this.fAuthService.doLogin(value)
     .then(res =>{
-      this.nav.push(FirebaseTabsNavigationPage);
+      this.nav.push(TabsNavigationPage);
     }, err => this.errorMessage = err.message)
   }
 
@@ -36,7 +38,7 @@ export class FirebaseLoginPage {
     this.loading = this.loadingCtrl.create();
     this.fAuthService.doFacebookLogin()
     .then((res) => {
-      this.nav.push(FirebaseTabsNavigationPage);
+      this.nav.push(TabsNavigationPage);
       this.loading.dismiss();
     }, (err) => {
       this.errorMessage = err.message;
@@ -47,7 +49,7 @@ export class FirebaseLoginPage {
     this.loading = this.loadingCtrl.create();
     this.fAuthService.doGoogleLogin()
     .then((data) => {
-       this.nav.push(FirebaseTabsNavigationPage);
+       this.nav.push(TabsNavigationPage);
        this.loading.dismiss();
     }, (err) => {
       this.errorMessage = err.message;
@@ -58,7 +60,7 @@ export class FirebaseLoginPage {
     this.loading = this.loadingCtrl.create();
     this.fAuthService.doTwitterLogin()
     .then((data) => {
-      this.nav.push(FirebaseTabsNavigationPage);
+      this.nav.push(TabsNavigationPage);
       this.loading.dismiss();
     }, (err) => {
       this.errorMessage = err.message;

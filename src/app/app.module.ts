@@ -173,7 +173,6 @@ export function createTranslateLoader(http: HttpClient) {
     FirebaseLoginPage,
     FirebaseProfilePage,
 		FirebaseSignupPage,
-    FirebaseTabsNavigationPage,
 
     //wordpress integration
     BlogFeedPage,
@@ -257,7 +256,6 @@ export function createTranslateLoader(http: HttpClient) {
 		FirebaseAvatarSelect,
     FirebaseLoginPage,
 		FirebaseSignupPage,
-    FirebaseTabsNavigationPage,
     FirebaseProfilePage,
     //wordpress integration
     BlogFeedPage,
