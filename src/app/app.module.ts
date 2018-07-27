@@ -48,6 +48,8 @@ import { FirebaseAvatarSelect } from '../pages/firebase-integration/firebase-ava
 import { FirebaseProfilePage } from '../pages/firebase-integration/firebase-profile/firebase-profile';
 import { FirebaseSignupPage } from '../pages/firebase-integration/firebase-signup/firebase-signup';
 import { FirebaseLoginPage } from '../pages/firebase-integration/firebase-login/firebase-login';
+import { FirebaseForgotPasswordPage } from '../pages/firebase-integration/firebase-forgot-password/firebase-forgot-password';
+
 //wordpress integration
 import { BlogFeedPage } from '../pages/wordpress-integration/blog-feed/blog-feed';
 import { BlogPostPage } from '../pages/wordpress-integration/blog-post/blog-post';
@@ -173,6 +175,7 @@ export function createTranslateLoader(http: HttpClient) {
     FirebaseLoginPage,
     FirebaseProfilePage,
 		FirebaseSignupPage,
+    FirebaseForgotPasswordPage,
 
     //wordpress integration
     BlogFeedPage,
@@ -257,6 +260,7 @@ export function createTranslateLoader(http: HttpClient) {
     FirebaseLoginPage,
 		FirebaseSignupPage,
     FirebaseProfilePage,
+    FirebaseForgotPasswordPage,
     //wordpress integration
     BlogFeedPage,
     BlogPostPage,

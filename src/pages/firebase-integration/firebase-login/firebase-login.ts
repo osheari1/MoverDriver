@@ -12,7 +12,7 @@ import {
 } from '@angular/forms';
 import { EmailValidator } from '../../../validators/email';
 
-import { ForgotPasswordPage } from '../../forgot-password/forgot-password';
+import { FirebaseForgotPasswordPage } from '../firebase-forgot-password/firebase-forgot-password';
 import { TabsNavigationPage } from '../../tabs-navigation/tabs-navigation';
 import { FirebaseSignupPage } from '../firebase-signup/firebase-signup';
 import { FirebaseAuthService } from '../firebase-auth.service';
@@ -41,67 +41,65 @@ export class FirebaseLoginPage {
     });
   }
 
-  doLogin(value){
+
+
+  doLogin(value) {
     this.fAuthService.doLogin(value)
-      .then(res =>{
+      .then(res => {
         this.loading.dismiss().then(() => {
           this.nav.setRoot(TabsNavigationPage);
         })
       }, err => {
-        this.errorMessage = err.message
-        const alert: Alert = this.alertCtrl.create({
-          message: this.errorMessage,
-          buttons: [
-            {
-              text: 'OK',
-              role: 'cancel'
-            }
-          ]
-        });
-        alert.present();
-      })
-      this.loading = this.loadingCtrl.create();
-      this.loading.present();
-  }
+        this.loading.dismiss().then(() => {
+          this.errorMessage = err.message
+          const alert: Alert = this.alertCtrl.create({
+            message: this.errorMessage,
+            buttons: [
+              {
+                text: 'OK',
+                role: 'cancel'
+              }
+            ]
+          });
+          alert.present();
 
-  // doLogin(value){
-  //   this.fAuthService.doLogin(value)
-  //   .then(res =>{
-  //     this.nav.push(TabsNavigationPage);
-  //   }, err => this.errorMessage = err.message)
-  // }
+        });
+      });
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
+  }
 
   doFacebookLogin() {
     this.loading = this.loadingCtrl.create();
     this.fAuthService.doFacebookLogin()
-    .then((res) => {
-      this.nav.push(TabsNavigationPage);
-      this.loading.dismiss();
-    }, (err) => {
-      this.errorMessage = err.message;
-    });
+      .then((res) => {
+        this.nav.push(TabsNavigationPage);
+        this.loading.dismiss();
+      }, (err) => {
+        this.errorMessage = err.message;
+      });
   }
 
   doGoogleLogin() {
     this.loading = this.loadingCtrl.create();
     this.fAuthService.doGoogleLogin()
-    .then((data) => {
-       this.nav.push(TabsNavigationPage);
-       this.loading.dismiss();
-    }, (err) => {
-      this.errorMessage = err.message;
-    });
+      .then((data) => {
+        this.nav.push(TabsNavigationPage);
+        this.loading.dismiss();
+      }, (err) => {
+        this.errorMessage = err.message;
+      });
   }
 
-  doTwitterLogin(){
+  doTwitterLogin() {
     this.loading = this.loadingCtrl.create();
     this.fAuthService.doTwitterLogin()
-    .then((data) => {
-      this.nav.push(TabsNavigationPage);
-      this.loading.dismiss();
-    }, (err) => {
-      this.errorMessage = err.message;
-    });
+      .then((data) => {
+        this.nav.push(TabsNavigationPage);
+        this.loading.dismiss();
+      }, (err) => {
+        this.errorMessage = err.message;
+      });
   }
 
   goToSignup() {
@@ -109,6 +107,6 @@ export class FirebaseLoginPage {
   }
 
   goToForgotPassword() {
-    this.nav.push(ForgotPasswordPage);
+    this.nav.push(FirebaseForgotPasswordPage);
   }
 }
