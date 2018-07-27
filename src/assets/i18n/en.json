@@ -126,5 +126,11 @@
   "ACCEPT_TERMS_VALIDATIONS": "Accept Terms Validations",
   "WORDPRESS_INTEGRATION": "Wordpress",
   "FIREBASE_INTEGRATION": "Firebase",
-  "FEED": "Feed"
+  "FEED": "Feed",
+  "HIRE_MOVER": "Hire Mover",
+  "HISTORY": "History",
+  "PAYMENT": "Payment",
+  "INVITE_FRIENDS": "Invite friends",
+  "BECOME_A_DRIVER": "Become a driver",
+  "SUPPORT": "Support"
 }

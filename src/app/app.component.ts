@@ -5,13 +5,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { Observable } from 'rxjs/Observable';
 
 import { TabsNavigationPage } from '../pages/tabs-navigation/tabs-navigation';
-import { FormsPage } from '../pages/forms/forms';
-import { LayoutsPage } from '../pages/layouts/layouts';
 import { WalkthroughPage } from '../pages/walkthrough/walkthrough';
-import { SettingsPage } from '../pages/settings/settings';
-import { FunctionalitiesPage } from '../pages/functionalities/functionalities';
 import { FirebaseLoginPage } from '../pages/firebase-integration/firebase-login/firebase-login';
-import { WordpressMenuPage } from '../pages/wordpress-integration/wordpress-menu/wordpress-menu';
 
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
@@ -32,6 +27,7 @@ export class MyApp {
   rootPage: any;
   // rootPage: any = TabsNavigationPage;
 
+  // textDir: string = "rtl";
   textDir: string = "ltr";
 
   pages: Array<{title: any, icon: string, component: any}>;
@@ -82,31 +78,29 @@ export class MyApp {
           platform.setDir('ltr', true);
         }
         Observable.forkJoin(
-          this.translate.get('HOME'),
-          this.translate.get('FORMS'),
-          this.translate.get('FUNCTIONALITIES'),
-          this.translate.get('LAYOUTS'),
-          this.translate.get('SETTINGS'),
-          this.translate.get('WORDPRESS_INTEGRATION'),
-          this.translate.get('FIREBASE_INTEGRATION')
+          this.translate.get('HIRE_MOVER'),
+          this.translate.get('HISTORY'),
+          this.translate.get('PAYMENT'),
+          this.translate.get('INVITE_FRIENDS'),
+          this.translate.get('BECOME_A_DRIVER'),
+          this.translate.get('SUPPORT'),
+          this.translate.get('LOG_OUT'),
         ).subscribe(data => {
           this.pages = [
-            { title: data[0], icon: 'home', component: TabsNavigationPage },
-            { title: data[1], icon: 'create', component: FormsPage },
-            { title: data[2], icon: 'code', component: FunctionalitiesPage }
+            { title: data[0], icon: 'bus', component: TabsNavigationPage },
+            { title: data[1], icon: 'calendar', component: TabsNavigationPage },
+            { title: data[2], icon: 'card', component: TabsNavigationPage },
+            { title: data[3], icon: 'share', component: TabsNavigationPage },
+            { title: data[4], icon: 'git-pull-request', component: TabsNavigationPage },
+            { title: data[5], icon: 'help', component: TabsNavigationPage },
           ];
 
           this.pushPages = [
-            { title: data[3], icon: 'grid', component: LayoutsPage },
-            { title: data[4], icon: 'settings', component: SettingsPage },
-            { title: data[5], icon: 'logo-wordpress', component: WordpressMenuPage },
-            { title: data[6], icon: 'flame', component: FirebaseLoginPage }
+            { title: data[6], icon: 'log-out', component: FirebaseLoginPage }
           ];
         });
       });
-
   }
-
 
   openPage(page) {
     // close the menu when clicking a link from the menu
