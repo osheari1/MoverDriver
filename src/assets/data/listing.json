@@ -6,11 +6,6 @@
             "title": "Move Furniture",
             "image": "./assets/images/landing/couch.png",
             "toPage": "RequestBasicJobPage"
-        },
-        {
-            "title": "Box Truck",
-            "image": "./assets/images/landing/couch.png",
-            "toPage": "RequestBoxTruckPage"
         }
     ]
 }

@@ -36,6 +36,9 @@ export class ListingPage {
   }
 
   goToPage(service: any) {
+    console.log("Clicked goToPage", service);
+    this.nav.push(service.toPage);
+
 
   }
   // goToFeed(category: any) {
