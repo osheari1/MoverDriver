@@ -4,8 +4,13 @@ import { NavController } from 'ionic-angular';
 import { FeedPage } from '../feed/feed';
 import 'rxjs/Rx';
 
-import { ListingModel } from './listing.model';
-import { ListingService } from './listing.service';
+// Image provider
+import { ImageProvider } from '../../providers/image/image';
+
+import {
+  // ListingModel,
+  LandingModel } from './listing.model';
+// import { ListingService } from './listing.service';
 
 
 @Component({
@@ -13,28 +18,29 @@ import { ListingService } from './listing.service';
   templateUrl: 'listing.html',
 })
 export class ListingPage {
-  listing: ListingModel = new ListingModel();
+  listing: LandingModel = new LandingModel();
 
   constructor(
     public nav: NavController,
-    public listingService: ListingService
+    public imageProvider: ImageProvider
   ) {}
 
   ionViewDidLoad() {
-    this.listingService
+    this.imageProvider
       .getData()
       .then(data => {
         this.listing.banner_image = data.banner_image;
         this.listing.banner_title = data.banner_title;
-        this.listing.populars = data.populars;
-        this.listing.categories = data.categories;
+        this.listing.services = data.services;
       });
   }
 
+  goToPage(service: any) {
 
-  goToFeed(category: any) {
-    console.log("Clicked goToFeed", category);
-    this.nav.push(FeedPage, { category: category });
   }
+  // goToFeed(category: any) {
+  //   console.log("Clicked goToFeed", category);
+  //   this.nav.push(FeedPage, { category: category });
+  // }
 
 }

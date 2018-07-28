@@ -109,6 +109,7 @@ import { EmailComposer } from '@ionic-native/email-composer';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { ImageProvider } from '../providers/image/image';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -303,6 +304,7 @@ export function createTranslateLoader(http: HttpClient) {
 		ImagePicker,
 		Crop,
 		EmailComposer,
+    ImageProvider,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

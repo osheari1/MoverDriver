@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { ListingPage } from '../listing/listing';
+// import { LandingPage } from '../landing/landing';
 import { ProfilePage } from '../profile/profile';
 import { NotificationsPage } from '../notifications/notifications';
 
