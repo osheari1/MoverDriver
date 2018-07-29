@@ -132,5 +132,6 @@
   "PAYMENT": "Payment",
   "INVITE_FRIENDS": "Invite friends",
   "BECOME_A_DRIVER": "Become a driver",
-  "SUPPORT": "Support"
+  "SUPPORT": "Support",
+  "REQUEST_JOB": "Request Job"
 }

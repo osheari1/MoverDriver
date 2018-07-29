@@ -9,6 +9,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { environment } from '../environment/environment';
 
 //pages
+import { RequestBasicJobPage } from '../pages/request-basic-job/request-basic-job';
 import { ListingPage } from '../pages/listing/listing';
 import { FeedPage } from '../pages/feed/feed';
 import { FollowersPage } from '../pages/followers/followers';
@@ -109,7 +110,6 @@ import { EmailComposer } from '@ionic-native/email-composer';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { ImageProvider } from '../providers/image/image';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -135,6 +135,7 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     MyApp,
+    RequestBasicJobPage,
     ListingPage,
     FeedPage,
     FollowersPage,
@@ -223,6 +224,7 @@ export function createTranslateLoader(http: HttpClient) {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    RequestBasicJobPage,
     ListingPage,
     FeedPage,
     FollowersPage,
@@ -304,7 +306,6 @@ export function createTranslateLoader(http: HttpClient) {
 		ImagePicker,
 		Crop,
 		EmailComposer,
-    ImageProvider,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

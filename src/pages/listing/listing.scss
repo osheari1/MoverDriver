@@ -11,8 +11,9 @@
 
 listing-page {
 	$categories-heading-image-height: 150px;
-	$categories-grid-padding: 10px;
+	$categories-grid-padding: 20px;
 	$categories-horizontal-list-padding: 10px;
+  $categories-grid-max-size: 20rem;
 
 	.listing-header
 	{
@@ -27,11 +28,13 @@ listing-page {
 		.image-heading
 		{
 			height: $categories-heading-image-height;
+      background-size: contain;
+      margin-left: auto;
+      margin-right: auto;
 
 			.bg-overlay
 			{
 				z-index: 1;
-				// background-color: rgba($black-c, .6);
 				background-color: rgba($white, .6);
 			}
 
@@ -57,14 +60,16 @@ listing-page {
 			}
 		}
 
-		.categories-title
-		{
-			font-size: 1.2rem;
-			font-weight: 400;
-			letter-spacing: 0.7px;
-			color: $white-d;
-			margin: 8px 16px 16px;
-		}
+			.categories-title
+			{
+				font-size: 1.85rem;
+				line-height: 1.2;
+				letter-spacing: 1.1px;
+				text-align: center;
+				color: $theme-color-1;
+				font-weight: 400;
+				margin: 20px;
+			}
 
 		.horizontal-categories
 		{
@@ -102,11 +107,15 @@ listing-page {
 				padding: 0px 0px 0px $categories-horizontal-list-padding;
 			}
 		}
-
 		.grid-categories
 		{
 			padding: 0px ($categories-grid-padding/2);
 			flex-wrap: wrap;
+      // Set max size of grid
+      max-height: $categories-grid-max-size;
+      max-width: $categories-grid-max-size;
+      margin-left: auto;
+      margin-right: auto;
 
 			.category-item
 			{
@@ -115,11 +124,11 @@ listing-page {
 				.category-heading
 				{
 					padding-bottom: 100%;
+          // background-size: auto;
 
 					.bg-overlay
 					{
 						z-index: 1;
-						// background-color: rgba($black-c, .6);
 						background-color: rgba($white, .6);
 					}
 
