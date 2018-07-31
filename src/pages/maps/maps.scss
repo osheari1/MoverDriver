@@ -1,6 +1,12 @@
 maps-page {
   $map-height: 100%;
   $nearby-places-height: 35%;
+  $fab-content-margin: 20px;
+
+  .fab-button
+  {
+    margin: $fab-content-margin;
+  }
 
   .map-row
   {
@@ -82,6 +88,7 @@ maps-page {
     			  @include ios-searchbar-icon($searchbar-ios-input-search-icon-svg, $theme-color-2);
     			}
     		}
+
       }
 
       .search-results

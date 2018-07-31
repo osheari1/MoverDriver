@@ -117,7 +117,7 @@ export class GoogleMapsService {
         route_query: google.maps.DirectionsRequest = {
           origin: _origin,
           destination: _destination,
-          travelMode: google.maps.TravelMode.WALKING
+          travelMode: google.maps.TravelMode.DRIVING
         };
 
     return Observable.create((observer) => {
@@ -137,7 +137,9 @@ export class GoogleMapsService {
     });
   }
 
-  getDistanceMatrix(origin: google.maps.LatLng, destination: google.maps.LatLng) : Observable<google.maps.DistanceMatrixResponse> {
+  getDistanceMatrix(
+      origin: google.maps.LatLng,
+      destination: google.maps.LatLng) : Observable<google.maps.DistanceMatrixResponse> {
     let _origin: google.maps.Place = {
           location: origin
         },
@@ -147,8 +149,10 @@ export class GoogleMapsService {
         distance_query: google.maps.DistanceMatrixRequest = {
           origins: [_origin],
           destinations: [_destination],
-          travelMode: google.maps.TravelMode.WALKING,
-          unitSystem: google.maps.UnitSystem.METRIC
+          // travelMode: google.maps.TravelMode.WALKING,
+          travelMode: google.maps.TravelMode.DRIVING,
+          // unitSystem: google.maps.UnitSystem.METRIC
+          unitSystem: google.maps.UnitSystem.IMPERIAL
         };
 
     return Observable.create((observer) => {

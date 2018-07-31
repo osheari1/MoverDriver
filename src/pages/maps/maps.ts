@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { NavController, LoadingController, ToastController } from 'ionic-angular';
-import { Geolocation} from '@ionic-native/geolocation';
+import { Geolocation } from '@ionic-native/geolocation';
 import { Keyboard } from '@ionic-native/keyboard';
 
 import { Observable } from 'rxjs/Observable';
@@ -9,11 +9,12 @@ import { GoogleMap } from "../../components/google-map/google-map";
 import { GoogleMapsService } from "./maps.service";
 import { MapsModel, MapPlace } from './maps.model';
 
+// TODO: ADD directions for multi stop.
+
 @Component({
   selector: 'maps-page',
   templateUrl: 'maps.html'
 })
-
 export class MapsPage implements OnInit {
   @ViewChild(GoogleMap) _GoogleMap: GoogleMap;
   map_model: MapsModel = new MapsModel();
@@ -39,15 +40,24 @@ export class MapsPage implements OnInit {
     });
   }
 
+  locationsValid(): boolean {
+    let env = this;
+    for (let location of env.map_model.locations) {
+      if (location.location) {
+        continue
+      }
+      return false
+    }
+    return true
+  }
 
 
-  searchPlacesPredictions(searchQueryIdx: number){
+  searchPlacesPredictions(searchQueryIdx: number) {
     let env = this;
 
     var query: string = env.map_model.searchQueries[searchQueryIdx];
 
-    if(query !== "")
-    {
+    if (query !== "") {
       env.GoogleMapsService.getPlacePredictions(query).subscribe(
         places_predictions => {
           env.map_model.searchPlacesPredictions[searchQueryIdx] = places_predictions;
@@ -59,7 +69,7 @@ export class MapsPage implements OnInit {
           console.log('onCompleted');
         }
       );
-    }else{
+    } else {
       env.map_model.searchPlacesPredictions[searchQueryIdx] = [];
     }
   }
@@ -78,63 +88,24 @@ export class MapsPage implements OnInit {
 
     // Set the origin for later directions
     env.map_model.locations[searchQueryIdx].location = location;
-    // env.map_model.directions_origin.location = location;
 
     // Add initial location to map and fit
     env.map_model.addPlaceToMap(location, '#00e9d5');
     env.map_model.updateBounds();
-    // env.map_model.bound.extend(location)
-    // env.map_model.map.fitBounds(env.map_model.bound)
+
+    if (env.map_model.locations[0].location
+      && env.map_model.locations[1].location) {
+      this.getDirections(
+        env.map_model.locations[0],
+        env.map_model.locations[1])
+    }
 
   }
-
-  setOrigin(location: google.maps.LatLng){
-    let env = this;
-
-    // Clean map
-    env.map_model.cleanMapFull();
-
-    // Set the origin for later directions
-    env.map_model.locations[0].location = location;
-    // env.map_model.directions_origin.location = location;
-
-    // Add initial location to map and fit
-    env.map_model.addPlaceToMap(location, '#00e9d5');
-    let bound = new google.maps.LatLngBounds()
-    bound.extend(location)
-    env.map_model.map.fitBounds(bound)
-
-    // Now we are able to search *restaurants near this location
-    env.GoogleMapsService.getPlacesNearby(location).subscribe(
-      nearby_places => {
-        // Create a location bound to center the map based on the results
-        let bound = new google.maps.LatLngBounds();
-
-        for (var i = 0; i < nearby_places.length; i++) {
-          bound.extend(nearby_places[i].geometry.location);
-          env.map_model.addNearbyPlace(nearby_places[i]);
-        }
-
-        // Select first place to give a hint to the user about how this works
-        env.choosePlace(env.map_model.nearby_places[0]);
-
-        // To fit map with places
-        env.map_model.map.fitBounds(bound);
-      },
-      e => {
-        console.log('onError: %s', e);
-      },
-      () => {
-        console.log('onCompleted');
-      }
-    );
-  }
-
 
   selectSearchResult(
     place: google.maps.places.AutocompletePrediction,
     searchQueryIdx: number
-  ){
+  ) {
     let env = this;
 
     env.map_model.searchQueries[searchQueryIdx] = place.description;
@@ -156,16 +127,16 @@ export class MapsPage implements OnInit {
   }
 
 
-  clearSearch(){
+  clearSearch() {
     let env = this;
     this.keyboard.close();
     // Clean map
     env.map_model.cleanMapFull();
   }
 
-  geolocateMe(searchQueryIdx: number){
+  geolocateMe(searchQueryIdx: number) {
     let env = this,
-        _loading = env.loadingCtrl.create();
+      _loading = env.loadingCtrl.create();
 
     _loading.present();
 
@@ -183,49 +154,45 @@ export class MapsPage implements OnInit {
     });
   }
 
-  choosePlace(place: MapPlace){
+  getDirections(origin: MapPlace, destination: MapPlace) {
     let env = this;
 
-    // Check if the place is not already selected
-    if(!place.selected)
-    {
-      // De-select previous places
-      env.map_model.deselectPlaces();
-      // Select current place
-      place.select();
+    let directions_obs = env.GoogleMapsService.getDirections(
+      origin.location, destination.location
+    )
+    let distance_obs = env.GoogleMapsService.getDistanceMatrix(
+      origin.location, destination.location
+    )
 
-      // Get both route directions and distance between the two locations
-      let directions_observable = env.GoogleMapsService
-            .getDirections(env.map_model.directions_origin.location, place.location),
-          distance_observable = env.GoogleMapsService
-            .getDistanceMatrix(env.map_model.directions_origin.location, place.location);
+    Observable.forkJoin(directions_obs, distance_obs).subscribe(
+      data => {
+        let directions = data[0],
+          distance = data[1].rows[0].elements[0].distance,
+          duration = data[1].rows[0].elements[0].duration;
 
+        env.map_model.directions_display.setDirections(directions);
 
-      Observable.forkJoin(directions_observable, distance_observable).subscribe(
-        data => {
-          let directions = data[0],
-              distance = data[1].rows[0].elements[0].distance.text,
-              duration = data[1].rows[0].elements[0].duration.text;
+        // Currently only allows 1 distance value
+        env.map_model.distance = distance.value;
+        env.map_model.duration = duration.value;
 
-          env.map_model.directions_display.setDirections(directions);
-
-          if(env.toast){
-            env.toast.dismiss();
-          }
-
-          env.toast = this.toastCtrl.create({
-                message: 'That\'s '+distance+' away and will take '+duration,
-                duration: 2000
-              });
-          env.toast.present();
-        },
-        e => {
-          console.log('onError: %s', e);
-        },
-        () => {
-          console.log('onCompleted');
+        if (env.toast) {
+          env.toast.dismiss();
         }
-      );
-    }
+
+        env.toast = this.toastCtrl.create({
+          message: 'That\'s ' + distance.text + ' away and will take ' + duration.text,
+          duration: 2000
+        });
+        env.toast.present();
+      },
+      e => {
+        console.log('onError: %s', e);
+      },
+      () => {
+        console.log('getDirections onCompleted');
+      }
+    )
   }
+
 }

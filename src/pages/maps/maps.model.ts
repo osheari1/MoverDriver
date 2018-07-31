@@ -12,8 +12,6 @@ export class MapsModel {
 	// search_query: string = '';
 	// search_places_predictions: Array<google.maps.places.AutocompletePrediction> = [];
 
-	nearby_places: Array<MapPlace> = [];
-
   // Customizations
   // Need to define 2 emptly lists by default, 1 for start 1 for end
   searchQueries: Array<string> = ['', ''];
@@ -21,11 +19,8 @@ export class MapsModel {
   locations: Array<MapPlace> = [new MapPlace(), new MapPlace()];
   bound: google.maps.LatLngBounds = new google.maps.LatLngBounds();
 
-
-  locationStart: MapPlace = new MapPlace;
-  locationEnd: MapPlace = new MapPlace;
-  directionsDisplay: google.maps.DirectionsRenderer;
-
+  distance: number;
+  duration: number;
 
 
 	directions_origin: MapPlace = new MapPlace();
@@ -58,9 +53,9 @@ export class MapsModel {
     this.map.fitBounds(this.bound);
   }
 
+
 	cleanMap(searchQueryIdx: number) {
 		// Empty nearby places array
-		// this.nearby_places = [];
     if (this.map_places[searchQueryIdx] == null) {
       return
     }
@@ -69,10 +64,6 @@ export class MapsModel {
 
 		// To remove all previous markers from the map
     this.map_places[searchQueryIdx].marker.setMap(null);
-		// this.map_places.forEach((place) => {
-    //   place.marker.setMap(null);
-    // });
-
 
 		// Empty markers array
 		// this.map_places = [];
@@ -113,25 +104,6 @@ export class MapsModel {
 		return _map_place;
 	}
 
-	addNearbyPlace(place_result: google.maps.places.PlaceResult) {
-		let _map_place = this.addPlaceToMap(place_result.geometry.location, '#666666');
-
-		// This is an extra attribute for nearby places only
-		_map_place.details = place_result;
-    let getRandom = (min:number, max:number) : number => {
-      return Math.floor(Math.random() * (max - min + 1) + min);
-    };
-    // Add a random image
-		_map_place.details["image"] = "./assets/images/maps/place-"+getRandom(1, 9)+".jpg";
-
-		this.nearby_places.push(_map_place);
-	}
-
-	deselectPlaces() {
-		this.nearby_places.forEach((place) => {
-      place.deselect();
-    });
-	}
 }
 
 export class MapPlace {

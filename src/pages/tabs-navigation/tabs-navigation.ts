@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
+import { MapsPage } from '../maps/maps';
 import { ListingPage } from '../listing/listing';
-// import { LandingPage } from '../landing/landing';
 import { ProfilePage } from '../profile/profile';
 import { NotificationsPage } from '../notifications/notifications';
 
@@ -15,7 +15,7 @@ export class TabsNavigationPage {
   tab3Root: any;
 
   constructor() {
-    this.tab1Root = ListingPage;
+    this.tab1Root = MapsPage;
     this.tab2Root = ProfilePage;
     this.tab3Root = NotificationsPage;
   }
