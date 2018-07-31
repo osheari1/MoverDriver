@@ -39,14 +39,18 @@ export class MapsPage implements OnInit {
     });
   }
 
-  searchPlacesPredictions(query: string){
+
+
+  searchPlacesPredictions(searchQueryIdx: number){
     let env = this;
+
+    var query: string = env.map_model.searchQueries[searchQueryIdx];
 
     if(query !== "")
     {
       env.GoogleMapsService.getPlacePredictions(query).subscribe(
         places_predictions => {
-          env.map_model.search_places_predictions = places_predictions;
+          env.map_model.searchPlacesPredictions[searchQueryIdx] = places_predictions;
         },
         e => {
           console.log('onError: %s', e);
@@ -56,22 +60,49 @@ export class MapsPage implements OnInit {
         }
       );
     }else{
-      env.map_model.search_places_predictions = [];
+      env.map_model.searchPlacesPredictions[searchQueryIdx] = [];
     }
+  }
+
+
+  setDestination(
+    location: google.maps.LatLng,
+    searchQueryIdx: number
+  ) {
+    let env = this;
+
+    // Clean map
+    if (env.map_model.searchQueries[searchQueryIdx] != '') {
+      env.map_model.cleanMap(searchQueryIdx);
+    }
+
+    // Set the origin for later directions
+    env.map_model.locations[searchQueryIdx].location = location;
+    // env.map_model.directions_origin.location = location;
+
+    // Add initial location to map and fit
+    env.map_model.addPlaceToMap(location, '#00e9d5');
+    env.map_model.updateBounds();
+    // env.map_model.bound.extend(location)
+    // env.map_model.map.fitBounds(env.map_model.bound)
+
   }
 
   setOrigin(location: google.maps.LatLng){
     let env = this;
 
     // Clean map
-    env.map_model.cleanMap();
+    env.map_model.cleanMapFull();
 
     // Set the origin for later directions
-    env.map_model.directions_origin.location = location;
+    env.map_model.locations[0].location = location;
+    // env.map_model.directions_origin.location = location;
 
+    // Add initial location to map and fit
     env.map_model.addPlaceToMap(location, '#00e9d5');
-
-    // With this result we should find restaurants (*places) arround this location and then show them in the map
+    let bound = new google.maps.LatLngBounds()
+    bound.extend(location)
+    env.map_model.map.fitBounds(bound)
 
     // Now we are able to search *restaurants near this location
     env.GoogleMapsService.getPlacesNearby(location).subscribe(
@@ -99,16 +130,21 @@ export class MapsPage implements OnInit {
     );
   }
 
-  selectSearchResult(place: google.maps.places.AutocompletePrediction){
+
+  selectSearchResult(
+    place: google.maps.places.AutocompletePrediction,
+    searchQueryIdx: number
+  ){
     let env = this;
 
-    env.map_model.search_query = place.description;
-    env.map_model.search_places_predictions = [];
+    env.map_model.searchQueries[searchQueryIdx] = place.description;
+    env.map_model.searchPlacesPredictions[searchQueryIdx] = [];
 
     // We need to get the location from this place. Let's geocode this place!
     env.GoogleMapsService.geocodePlace(place.place_id).subscribe(
       place_location => {
-        env.setOrigin(place_location);
+        env.setDestination(place_location, searchQueryIdx);
+        // env.setOrigin(place_location);
       },
       e => {
         console.log('onError: %s', e);
@@ -119,14 +155,15 @@ export class MapsPage implements OnInit {
     );
   }
 
+
   clearSearch(){
     let env = this;
     this.keyboard.close();
     // Clean map
-    env.map_model.cleanMap();
+    env.map_model.cleanMapFull();
   }
 
-  geolocateMe(){
+  geolocateMe(searchQueryIdx: number){
     let env = this,
         _loading = env.loadingCtrl.create();
 
@@ -134,8 +171,9 @@ export class MapsPage implements OnInit {
 
     this.geolocation.getCurrentPosition().then((position) => {
       let current_location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      env.map_model.search_query = position.coords.latitude.toFixed(2) + ", " + position.coords.longitude.toFixed(2);
-      env.setOrigin(current_location);
+      env.map_model.searchQueries[searchQueryIdx] = position.coords.latitude.toFixed(2) + ", " + position.coords.longitude.toFixed(2);
+      // env.setOrigin(current_location);
+      env.setDestination(current_location, searchQueryIdx)
       env.map_model.using_geolocation = true;
 
       _loading.dismiss();

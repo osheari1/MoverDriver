@@ -54,7 +54,8 @@ maps-page {
           .geolocation-button
           {
             color: $black-d;
-            margin-left: -3px;
+            // margin-left: -3px;
+            margin-left: 0px;
 
             &.using-geolocation
             {

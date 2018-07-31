@@ -1,17 +1,32 @@
 export class MapsModel {
   map: google.maps.Map;
 	map_options: google.maps.MapOptions = {
-    center: {lat: 40.785091, lng: -73.968285},
+    // center: {lat: 40.785091, lng: -73.968285},
+    center: {lat: 32.7157, lng: -117.1611},
     zoom: 13,
     disableDefaultUI: true
   };
 
 	map_places: Array<MapPlace> = [];
 
-	search_query: string = '';
-	search_places_predictions: Array<google.maps.places.AutocompletePrediction> = [];
+	// search_query: string = '';
+	// search_places_predictions: Array<google.maps.places.AutocompletePrediction> = [];
 
 	nearby_places: Array<MapPlace> = [];
+
+  // Customizations
+  // Need to define 2 emptly lists by default, 1 for start 1 for end
+  searchQueries: Array<string> = ['', ''];
+  searchPlacesPredictions: Array<Array<google.maps.places.AutocompletePrediction>> = [[], []];
+  locations: Array<MapPlace> = [new MapPlace(), new MapPlace()];
+  bound: google.maps.LatLngBounds = new google.maps.LatLngBounds();
+
+
+  locationStart: MapPlace = new MapPlace;
+  locationEnd: MapPlace = new MapPlace;
+  directionsDisplay: google.maps.DirectionsRenderer;
+
+
 
 	directions_origin: MapPlace = new MapPlace();
 	directions_display: google.maps.DirectionsRenderer;
@@ -29,10 +44,44 @@ export class MapsModel {
 		});
 	}
 
-	cleanMap() {
-		// Empty nearby places array
-		this.nearby_places = [];
+  updateBounds() {
+    var bound = new google.maps.LatLngBounds();
+    // for (let location of this.locations) {
+    //   bound.extend(location.location);
+    // }
+    this.locations.forEach(location => {
+      if (location.location) {
+        bound.extend(location.location);
+      }
+    });
+    this.bound = bound;
+    this.map.fitBounds(this.bound);
+  }
 
+	cleanMap(searchQueryIdx: number) {
+		// Empty nearby places array
+		// this.nearby_places = [];
+    if (this.map_places[searchQueryIdx] == null) {
+      return
+    }
+		// To clear previous directions
+		this.directions_display.setDirections({routes: []});
+
+		// To remove all previous markers from the map
+    this.map_places[searchQueryIdx].marker.setMap(null);
+		// this.map_places.forEach((place) => {
+    //   place.marker.setMap(null);
+    // });
+
+
+		// Empty markers array
+		// this.map_places = [];
+    if (searchQueryIdx != 0) {
+  		this.using_geolocation = false;
+    }
+	}
+
+  cleanMapFull() {
 		// To clear previous directions
 		this.directions_display.setDirections({routes: []});
 
@@ -45,7 +94,9 @@ export class MapsModel {
 		this.map_places = [];
 
 		this.using_geolocation = false;
-	}
+
+  }
+
 
 	addPlaceToMap(location: google.maps.LatLng, color: string = '#333333') : MapPlace {
 		let _map_place = new MapPlace();

@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { RequestBasicJobPage } from '../request-basic-job/request-basic-job';
 
 import 'rxjs/Rx';
 
-import { LandingModel } from './listing.model';
 import { data } from './data';
 
 @Component({

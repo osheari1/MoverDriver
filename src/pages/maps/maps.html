@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{ 'GOOGLE_MAPS' | translate}}</ion-title>
+    <ion-title>{{ 'REQUEST_JOB' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -8,27 +8,49 @@
   <ion-row no-padding class="map-row">
     <ion-col no-padding class="map-col">
       <div class="search-container">
-        <!-- <ion-toolbar class="search-toolbar transparent-background"> -->
-        <ion-toolbar class="search-toolbar">
-          <ion-buttons start>
-            <button ion-button icon-only (click)="geolocateMe()" class="geolocation-button" [ngClass]="{'using-geolocation': map_model.using_geolocation}">
-              <ion-icon name="locate"></ion-icon>
-            </button>
-          </ion-buttons>
-          <ion-searchbar class="search-places-bar" placeholder="Search places near location" [(ngModel)]="map_model.search_query" (ionInput)="searchPlacesPredictions(map_model.search_query)" (ionClear)="clearSearch()"></ion-searchbar>
+
+        <!-- START POSITION -->
+        <ion-toolbar class="search-toolbar transparent-background">
+          <!-- <ion-toolbar class="search-toolbar"> -->
+          <ion-searchbar class="search-places-bar" placeholder="Start" [(ngModel)]="map_model.searchQueries[0]"
+            (ionInput)="searchPlacesPredictions(0)" (ionClear)="clearSearch()"></ion-searchbar>
         </ion-toolbar>
-        <ion-list [hidden]="map_model.search_places_predictions.length == 0" class="search-options-list">
-          <ion-item *ngFor="let place of map_model.search_places_predictions" tappable (click)="selectSearchResult(place)">
+        <ion-list [hidden]="map_model.searchPlacesPredictions[0].length == 0" class="search-options-list">
+          <ion-item *ngFor="let place of map_model.searchPlacesPredictions[0]" tappable (click)="selectSearchResult(place, 0)">
             {{ place.description }}
           </ion-item>
         </ion-list>
+
+
+
+        <!-- END POSITION -->
+        <ion-toolbar class="search-toolbar transparent-background">
+          <!-- <ion-toolbar class="search-toolbar"> -->
+          <ion-buttons start>
+            <button ion-button icon-only (click)="geolocateMe(1)" class="geolocation-button" [ngClass]="{'using-geolocation': map_model.using_geolocation}">
+              <ion-icon name="locate"></ion-icon>
+            </button>
+          </ion-buttons>
+          <ion-searchbar class="search-places-bar" placeholder="End" [(ngModel)]="map_model.searchQueries[1]" (ionInput)="searchPlacesPredictions(1)"
+            (ionClear)="clearSearch()"></ion-searchbar>
+        </ion-toolbar>
+        <ion-list [hidden]="map_model.searchPlacesPredictions[1].length == 0" class="search-options-list">
+          <ion-item *ngFor="let place of map_model.searchPlacesPredictions[1]" tappable (click)="selectSearchResult(place, 1)">
+            {{ place.description }}
+          </ion-item>
+        </ion-list>
+
       </div>
+
+      <!-- MAP -->
       <div class="map-container">
         <google-map [options]="map_model.map_options"></google-map>
       </div>
-      <ion-scroll [hidden]="map_model.nearby_places.length == 0" scrollX="true" class="nearby-places-container">
+
+      <!-- <ion-scroll [hidden]="map_model.nearby_places.length == 0" scrollX="true" class="nearby-places-container">
         <ion-row class="nearby-places-row">
-          <ion-col width-64 class="place-item-outer" *ngFor="let place of map_model.nearby_places" [ngClass]="{'selected-place': place.selected}" (click)="choosePlace(place)">
+          <ion-col width-64 class="place-item-outer" *ngFor="let place of map_model.nearby_places" [ngClass]="{'selected-place': place.selected}"
+            (click)="choosePlace(place)">
             <ion-card class="place-card">
               <background-image class="place-image-heading" [src]="place.details.image">
                 <ion-row class="heading-row">
@@ -64,7 +86,8 @@
             </ion-card>
           </ion-col>
         </ion-row>
-      </ion-scroll>
+      </ion-scroll> -->
+
     </ion-col>
   </ion-row>
 </ion-content>
