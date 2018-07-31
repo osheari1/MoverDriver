@@ -3,6 +3,8 @@ import { NavController, LoadingController, ToastController } from 'ionic-angular
 import { Geolocation } from '@ionic-native/geolocation';
 import { Keyboard } from '@ionic-native/keyboard';
 
+import { RequestDetailsPage } from '../request-details/request-details';
+
 import { Observable } from 'rxjs/Observable';
 
 import { GoogleMap } from "../../components/google-map/google-map";
@@ -193,6 +195,17 @@ export class MapsPage implements OnInit {
         console.log('getDirections onCompleted');
       }
     )
+  }
+
+  goToJobRequest(): void {
+    let env = this;
+    this.nav.push(
+      RequestDetailsPage,
+      {
+        distance: env.map_model.distance,
+        duration: env.map_model.duration
+      }
+    );
   }
 
 }

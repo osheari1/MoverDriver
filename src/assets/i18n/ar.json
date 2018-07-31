@@ -134,5 +134,9 @@
   "INVITE_FRIENDS": "Invite friends",
   "BECOME_A_DRIVER": "Become a driver",
   "SUPPORT": "Support",
-  "REQUEST_JOB": "Request Job"
+  "REQUEST_JOB": "Request Job",
+  "REQUEST_DETAILS": "Request Details",
+  "WEIGHT_ESTIMATE": "Weight Estimate",
+  "PICKUP_TIME": "Pickup Time",
+  "ADDITIONAL_DETAILS": "Additional Details"
 }

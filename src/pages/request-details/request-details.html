@@ -1,0 +1,73 @@
+<!--
+  Generated template for the RequestDetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{'REQUEST_DETAILS' | translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="forms-examples-content">
+  <!-- <div class="forms-wrapper"> -->
+  <div class="post-example-view">
+    <form class="sample-form post-form" [formGroup]="form" (ngSubmit)="passJobRequest()">
+
+      <section class="form-section">
+        <ion-item>
+          <ion-input type="text" placeholder="Item description" formControlName="description"></ion-input>
+        </ion-item>
+
+        <button *ngIf="!selected_image" ion-button block large class="upload-image-button" (click)="openImagePicker()">
+            <ion-icon name="camera"></ion-icon>
+            <h3 class="button-title">{{'UPLOAD_AN_IMAGE' | translate}}</h3>
+          </button>
+        <preload-image *ngIf="selected_image" [ratio]="{w:1, h:1}" [src]="selected_image" alt="image" title="Item Image">
+        </preload-image>
+      </section>
+
+      <ion-item class="range-item">
+        <ion-label>
+          <h2 class="range-label">{{'WEIGHT_ESTIMATE' | translate}}</h2>
+          <h3 class="range-value">{{form.controls.weight.value}} lbs.</h3>
+        </ion-label>
+        <ion-range formControlName="weight" min="0" max="1000" step="10" snaps="true" pin="false"></ion-range>
+      </ion-item>
+
+      <section class="form-section">
+        <ion-row no-padding class="multi-input-row">
+          <ion-col no-padding width-60>
+            <ion-item class="multi-input time-item">
+              <ion-label floating>{{'PICKUP_TIME' | translate }}</ion-label>
+              <ion-datetime formControlName="date" displayFormat="DD/MM/YY" pickerFormat="DD-MM-YYYY"></ion-datetime>
+            </ion-item>
+          </ion-col>
+          <ion-col no-padding width-40>
+            <ion-item class="multi-input time-item">
+              <ion-datetime formControlName="time" displayFormat="h mm a" pickerFormat="h mm A"></ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </section>
+
+
+      <h2 class="section-title">{{'ADDITIONAL_DETAILS' | translate}}</h2>
+
+
+
+      <!-- ADDITIONAL COMMENTS -->
+      <ion-item>
+        <ion-textarea rows="7" placeholder="Add additional comments..." formControlName="comments"></ion-textarea>
+      </ion-item>
+
+
+      <!-- <section class="form-section">
+          <button ion-button block class="form-action-button create-post-button" type="submit" [disabled]="!post_form.valid">Post!</button>
+        </section> -->
+    </form>
+  </div>
+  <!-- </div> -->
+</ion-content>
