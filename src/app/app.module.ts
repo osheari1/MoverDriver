@@ -9,6 +9,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { environment } from '../environment/environment';
 
 //pages
+import {EquipmentOptionsPage} from "../pages/equipment-options/equipment-options";
 import { RequestDetailsPage } from '../pages/request-details/request-details';
 import { ListingPage } from '../pages/listing/listing';
 import { FeedPage } from '../pages/feed/feed';
@@ -135,6 +136,7 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     MyApp,
+    EquipmentOptionsPage,
     RequestDetailsPage,
     ListingPage,
     FeedPage,
@@ -224,6 +226,7 @@ export function createTranslateLoader(http: HttpClient) {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    EquipmentOptionsPage,
     RequestDetailsPage,
     ListingPage,
     FeedPage,

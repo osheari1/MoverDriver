@@ -3,13 +3,12 @@ form-layout-page {
 		@include header-styles(color($colors, header-alt, base), color($colors, header-alt, contrast));
 	}
 
-	.forms-examples-content
+  .forms-content
 	{
 		background-color: color($colors, background, base);
 
-		.forms-examples-segment
-		{
-			padding: 14px 0px;
+    .forms-segment {
+      padding: 14px 0;
 			background-color: $white;
 			@include element-shadow();
 
@@ -21,11 +20,11 @@ form-layout-page {
 			}
 		}
 
-		.sample-form
+    .form
 		{
 			.form-section
 			{
-				padding: 0px 14px;
+        padding: 0 14px;
 
 				.item:first-child
 				{
@@ -42,7 +41,7 @@ form-layout-page {
 
 					&.item-label-floating
 					{
-						margin-top: 0px;
+            margin-top: 0;
 
 						ion-label {
 							color: $white-d;
@@ -58,7 +57,7 @@ form-layout-page {
 				}
 
 				&:first-of-type {
-					margin-top: 0px;
+          margin-top: 0;
 				}
 			}
 
@@ -70,12 +69,12 @@ form-layout-page {
 				text-align: center;
 				color: $theme-color-2;
 				font-weight: 400;
-				margin: 0px;
+        margin: 0;
 			}
 
 			.form-action-button
 			{
-				margin: 0px;
+        margin: 0;
 				margin-top: 20px;
 
 				@include call-to-action-button-styles(color($colors, button, base), color($colors, button, contrast));
@@ -94,7 +93,7 @@ form-layout-page {
 					background-color: $white;
 					color: $white-d;
 					height: initial;
-					margin: 30px 0px;
+          margin: 30px 0;
 					padding-top: 16px;
 					padding-bottom: 32px;
 					@include element-shadow();
@@ -117,7 +116,7 @@ form-layout-page {
 							font-size: 1.4rem;
 							color: $white-d;
 							font-weight: 400;
-							margin: 0px;
+              margin: 0;
 						}
 					}
 				}
@@ -129,7 +128,7 @@ form-layout-page {
 
 					.item-inner
 					{
-						padding: 0px 14px;
+            padding: 0 14px;
 					}
 				}
 
@@ -138,7 +137,7 @@ form-layout-page {
 					border-radius: 6px;
 					background-color: $white;
 					color: $white-d;
-					margin: 30px 0px;
+          margin: 30px 0;
 					@include element-shadow();
 
 					.button-inner
@@ -163,7 +162,7 @@ form-layout-page {
 				.range-item
 				{
 					padding: 15px 30px;
-					margin: 0px;
+          margin: 0;
 					background-color: $white;
 
 					ion-label {
@@ -176,19 +175,19 @@ form-layout-page {
 
 				.time-item
 				{
-					padding: 0px 30px;
-					margin: 0px;
+          padding: 0 30px;
+          margin: 0;
 					background-color: $white;
 					border: none !important;
 					@include element-shadow();
 
 					.item-inner
 					{
-						padding: 0px;
+            padding: 0;
 						border: none;
 
 						ion-label {
-							margin: 15px 8px 15px 0px;
+              margin: 15px 8px 15px 0;
 							font-size: 1.4rem;
 							font-weight: 500;
 							letter-spacing: 0.2px;
@@ -196,7 +195,7 @@ form-layout-page {
 						}
 
 						ion-datetime {
-							padding-right: 0px;
+              padding-right: 0;
 
 							.datetime-text
 							{
@@ -222,7 +221,7 @@ form-layout-page {
 
 				.counter-item
 				{
-					margin: 0px;
+          margin: 0;
 					background-color: $white;
 
 					.item-inner
@@ -261,20 +260,20 @@ form-layout-page {
 					align-items: flex-end;
 
 					ion-col {
-						padding: 0px 7px;
+            padding: 0 7px;
 
 						&:first-child{
-							padding-left: 0px;
+              padding-left: 0;
 						}
 
 						&:last-child{
-							padding-right: 0px;
+              padding-right: 0;
 						}
 					}
 
 					.multi-input
 					{
-						margin: 0px;
+            margin: 0;
 
 						&.item-datetime.item-label-floating
 						{
@@ -283,12 +282,12 @@ form-layout-page {
 							}
 
 							ion-datetime {
-								padding-top: 0px;
+                padding-top: 0;
 							}
 						}
 
 						ion-datetime {
-							padding-left: 0px;
+              padding-left: 0;
 
 							.datetime-text
 							{
@@ -320,25 +319,25 @@ form-layout-page {
 				.multi-input-row
 				{
 					ion-col {
-						padding: 0px 7px;
+            padding: 0 7px;
 
 						&:first-child{
-							padding-left: 0px;
+              padding-left: 0;
 						}
 
 						&:last-child{
-							padding-right: 0px;
+              padding-right: 0;
 						}
 					}
 
 					.multi-input
 					{
-						margin: 0px;
+            margin: 0;
 					}
 				}
 
 				ion-datetime {
-					padding-left: 0px;
+          padding-left: 0;
 					padding-top: 8px;
 					padding-bottom: 7px;
 
@@ -350,13 +349,13 @@ form-layout-page {
 
 				.card-preferences
 				{
-					margin: 40px 0px 50px;
+          margin: 40px 0 50px;
 
 					@include switcher-item-styles($white-d, $theme-color-1);
 
 					.switcher-item
 					{
-						padding: 0px 14px;
+            padding: 0 14px;
 					  background: $white;
 
 						.item-inner
@@ -366,7 +365,7 @@ form-layout-page {
 							}
 
 							ion-toggle {
-								padding-right: 0px;
+                padding-right: 0;
 							}
 						}
 					}
@@ -406,11 +405,11 @@ ion-alert.category-prompt {
 	.alert-checkbox-group
 	{
 		border: none;
-		padding: 0px 20px;
+    padding: 0 20px;
 
 		.alert-checkbox
 		{
-			margin: 14px 0px;
+      margin: 14px 0;
 
 			.alert-checkbox-label
 			{
@@ -439,7 +438,7 @@ ion-alert.category-prompt {
 
 	.alert-button-group
 	{
-		padding: 14px 0px;
+    padding: 14px 0;
 
 		.alert-button
 		{

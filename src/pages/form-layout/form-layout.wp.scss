@@ -1,6 +1,6 @@
 ion-app.wp {
 	form-layout-page {
-		.forms-examples-segment
+    .forms-segment
 		{
 			justify-content: center;
 			@include segment-button-wp-styles();
@@ -16,7 +16,7 @@ ion-app.wp {
 			.item-inner counter-input .counter-icon
 			{
 				ion-icon {
-					margin: 0px;
+          margin: 0;
 				  border: none;
 				  padding: 1px;
 				  width: 100%;
@@ -48,7 +48,7 @@ ion-app.wp {
 			{
 				ion-datetime {
 				  width: 100%;
-					padding-right: 0px !important;
+          padding-right: 0 !important;
 					padding-top: 8px !important;
 					padding-bottom: 7px !important;
 				}
@@ -60,7 +60,7 @@ ion-app.wp {
 			.time-item
 			{
 				ion-datetime {
-					padding-right: 0px !important;
+          padding-right: 0 !important;
 				}
 			}
 		}
@@ -70,21 +70,21 @@ ion-app.wp {
 			@include switcher-item-wp-styles($white-b, $theme-color-2);
 		}
 
-		.sample-form
+    .form
 		{
 			.item
 			{
-				padding: 0px;
+        padding: 0;
 
 				.item-inner
 				{
-					padding: 0px;
+          padding: 0;
 					position: relative;
 
 					ion-icon {
 						position: absolute;
-						right: 0px;
-						top: 0px;
+            right: 0;
+            top: 0;
 						margin: 13px 6px;
 						line-height: 3rem;
 						border: solid 2px rgba(0, 0, 0, 0);
@@ -93,7 +93,7 @@ ion-app.wp {
 
 				.text-input
 				{
-					padding: 0px 0.6rem;
+          padding: 0 0.6rem;
 				}
 
 				&[icon-end]

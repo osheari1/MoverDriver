@@ -1,6 +1,6 @@
 ion-app.ios {
 	form-layout-page {
-		.forms-examples-segment
+    .forms-segment
 		{
 			@include segment-button-ios-styles();
 		}

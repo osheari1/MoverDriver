@@ -9,7 +9,7 @@
 
 		.request-segment
 		{
-			padding: 14px 0px;
+      padding: 14px 0;
 			background-color: $white;
 			@include element-shadow();
 
@@ -21,11 +21,11 @@
 			}
 		}
 
-		.sample-form
+    .form
 		{
 			.form-section
 			{
-				padding: 0px 14px;
+        padding: 0 14px;
 
 				.item:first-child
 				{
@@ -42,7 +42,7 @@
 
 					&.item-label-floating
 					{
-						margin-top: 0px;
+            margin-top: 0;
 
 						ion-label {
 							color: $white-d;
@@ -58,7 +58,7 @@
 				}
 
 				&:first-of-type {
-					margin-top: 0px;
+          margin-top: 0;
 				}
 			}
 
@@ -70,12 +70,12 @@
 				text-align: center;
 				color: $theme-color-2;
 				font-weight: 400;
-				margin: 0px;
+        margin: 0;
 			}
 
 			.form-action-button
 			{
-				margin: 0px;
+        margin: 0;
 				margin-top: 20px;
 
 				@include call-to-action-button-styles(color($colors, button, base), color($colors, button, contrast));
@@ -94,7 +94,7 @@
 					background-color: $white;
 					color: $white-d;
 					height: initial;
-					margin: 30px 0px;
+          margin: 30px 0;
 					padding-top: 16px;
 					padding-bottom: 32px;
 					@include element-shadow();
@@ -117,7 +117,7 @@
 							font-size: 1.4rem;
 							color: $white-d;
 							font-weight: 400;
-							margin: 0px;
+              margin: 0;
 						}
 					}
 				}
@@ -129,7 +129,7 @@
 
 					.item-inner
 					{
-						padding: 0px 14px;
+            padding: 0 14px;
 					}
 				}
 
@@ -138,7 +138,7 @@
 					border-radius: 6px;
 					background-color: $white;
 					color: $white-d;
-					margin: 30px 0px;
+          margin: 30px 0;
 					@include element-shadow();
 
 					.button-inner
@@ -163,7 +163,7 @@
 				.range-item
 				{
 					padding: 15px 30px;
-					margin: 0px;
+          margin: 0;
 					background-color: $white;
 
 					ion-label {
@@ -176,19 +176,19 @@
 
 				.time-item
 				{
-					padding: 0px 30px;
-					margin: 0px;
+          padding: 0 30px;
+          margin: 0;
 					background-color: $white;
 					border: none !important;
 					@include element-shadow();
 
 					.item-inner
 					{
-						padding: 0px;
+            padding: 0;
 						border: none;
 
 						ion-label {
-							margin: 15px 8px 15px 0px;
+              margin: 15px 8px 15px 0;
 							font-size: 1.4rem;
 							font-weight: 500;
 							letter-spacing: 0.2px;
@@ -196,7 +196,7 @@
 						}
 
 						ion-datetime {
-							padding-right: 0px;
+              padding-right: 0;
 
 							.datetime-text
 							{
@@ -222,7 +222,7 @@
 
 				.counter-item
 				{
-					margin: 0px;
+          margin: 0;
 					background-color: $white;
 
 					.item-inner
@@ -261,20 +261,20 @@
 					align-items: flex-end;
 
 					ion-col {
-						padding: 0px 7px;
+            padding: 0 7px;
 
 						&:first-child{
-							padding-left: 0px;
+              padding-left: 0;
 						}
 
 						&:last-child{
-							padding-right: 0px;
+              padding-right: 0;
 						}
 					}
 
 					.multi-input
 					{
-						margin: 0px;
+            margin: 0;
 
 						&.item-datetime.item-label-floating
 						{
@@ -283,12 +283,12 @@
 							}
 
 							ion-datetime {
-								padding-top: 0px;
+                padding-top: 0;
 							}
 						}
 
 						ion-datetime {
-							padding-left: 0px;
+              padding-left: 0;
 
 							.datetime-text
 							{
@@ -320,25 +320,25 @@
 				.multi-input-row
 				{
 					ion-col {
-						padding: 0px 7px;
+            padding: 0 7px;
 
 						&:first-child{
-							padding-left: 0px;
+              padding-left: 0;
 						}
 
 						&:last-child{
-							padding-right: 0px;
+              padding-right: 0;
 						}
 					}
 
 					.multi-input
 					{
-						margin: 0px;
+            margin: 0;
 					}
 				}
 
 				ion-datetime {
-					padding-left: 0px;
+          padding-left: 0;
 					padding-top: 8px;
 					padding-bottom: 7px;
 
@@ -350,13 +350,13 @@
 
 				.card-preferences
 				{
-					margin: 40px 0px 50px;
+          margin: 40px 0 50px;
 
 					@include switcher-item-styles($white-d, $theme-color-1);
 
 					.switcher-item
 					{
-						padding: 0px 14px;
+            padding: 0 14px;
 					  background: $white;
 
 						.item-inner
@@ -366,7 +366,7 @@
 							}
 
 							ion-toggle {
-								padding-right: 0px;
+                padding-right: 0;
 							}
 						}
 					}
@@ -406,11 +406,11 @@ ion-alert.category-prompt {
 	.alert-checkbox-group
 	{
 		border: none;
-		padding: 0px 20px;
+    padding: 0 20px;
 
 		.alert-checkbox
 		{
-			margin: 14px 0px;
+      margin: 14px 0;
 
 			.alert-checkbox-label
 			{
@@ -439,7 +439,7 @@ ion-alert.category-prompt {
 
 	.alert-button-group
 	{
-		padding: 14px 0px;
+    padding: 14px 0;
 
 		.alert-button
 		{

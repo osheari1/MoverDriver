@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding class="forms-validations-content">
-  <form class="sample-form validations-form" [formGroup]="validations_form"  (ngSubmit)="onSubmit(validations_form.value)">
+  <form class="form validations-form" [formGroup]="validations_form" (ngSubmit)="onSubmit(validations_form.value)">
     <section class="form-section">
       <h2 class="section-title">{{'BASIC_VALIDATIONS' | translate}}</h2>
       <ion-item>

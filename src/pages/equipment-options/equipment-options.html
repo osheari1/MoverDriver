@@ -5,14 +5,54 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>equipmentOptions</ion-title>
+    <ion-title>{{'SELECT_VEHICLE' | translate}}</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="forms-content">
+
+  <ion-segment class="forms-segment" [(ngModel)]="section" (ionChange)="onSegmentChanged($event)">
+    <ion-segment-button value="truck" (ionSelect)="onSegmentSelected($event)">
+      {{'TRUCK' | translate}}
+    </ion-segment-button>
+    <ion-segment-button value="large-truck" (ionSelect)="onSegmentSelected($event)">
+      {{'LARGE_TRUCK' | translate}}
+    </ion-segment-button>
+    <ion-segment-button value="box-van" (ionSelect)="onSegmentSelected($event)">
+      {{'BOX_VAN' | translate}}
+    </ion-segment-button>
+  </ion-segment>
+
+
+  <div [ngSwitch]="section" class="forms-wrapper">
+
+    <div *ngSwitchCase="'truck'" class="truck-view">
+      <form class="form truck-form" [formGroup]="truckForm" (ngSubmit)="submitJobRequest()">
+        <section class="form-section">
+          <h2 class="section-title">ENTER TRUCK DETAILS HERE</h2>
+        </section>
+      </form>
+    </div>
+
+    <div *ngSwitchCase="'large-truck'" class="truck-view">
+      <form class="form truck-form" [formGroup]="largeTruckForm" (ngSubmit)="submitJobRequest()">
+        <section class="form-section">
+          <h2 class="section-title">ENTER LARGE TRUCK DETAILS HERE</h2>
+        </section>
+      </form>
+    </div>
+
+    <div *ngSwitchCase="'box-van'" class="truck-view">
+      <form class="form truck-form" [formGroup]="boxVanForm" (ngSubmit)="submitJobRequest()">
+        <section class="form-section">
+          <h2 class="section-title">ENTER BOX VAN DETAILS</h2>
+        </section>
+      </form>
+    </div>
+
+  </div>
 
 </ion-content>
+

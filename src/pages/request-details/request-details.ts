@@ -38,6 +38,10 @@ export class RequestDetailsPage {
     public platform: Platform
 
   ) {
+
+    // Keep job request from previous page
+    this.jobRequest = navParams.data;
+
     this.form = new FormGroup({
       description: new FormControl('', Validators.required),
       date: new FormControl('', Validators.required),
@@ -50,8 +54,6 @@ export class RequestDetailsPage {
       hasHardwood: new FormControl(false)
     });
 
-    // Keep job request from previous page
-    this.jobRequest = navParams.data;
 
 
   }

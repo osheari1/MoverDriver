@@ -4,8 +4,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="forms-examples-content">
-  <ion-segment class="forms-examples-segment" [(ngModel)]="section" (ionChange)="onSegmentChanged($event)">
+<ion-content class="forms-content">
+  <ion-segment class="forms-segment" [(ngModel)]="section" (ionChange)="onSegmentChanged($event)">
     <ion-segment-button value="post" (ionSelect)="onSegmentSelected($event)">
       {{'POST' | translate}}
     </ion-segment-button>
@@ -18,7 +18,7 @@
   </ion-segment>
   <div [ngSwitch]="section" class="forms-wrapper">
     <div *ngSwitchCase="'post'" class="post-example-view">
-      <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="createPost()">
+      <form class="form post-form" [formGroup]="post_form" (ngSubmit)="createPost()">
         <section class="form-section">
           <ion-item>
             <ion-input type="text" placeholder="Title: e.g. Krabby Patty" formControlName="title"></ion-input>
@@ -60,7 +60,7 @@
       </form>
     </div>
     <div *ngSwitchCase="'event'" class="event-example-view">
-      <form class="sample-form event-form" [formGroup]="event_form" (ngSubmit)="createEvent()">
+      <form class="form event-form" [formGroup]="event_form" (ngSubmit)="createEvent()">
         <section class="form-section">
           <h2 class="section-title">{{'ADD_AN_EVENT' | translate}}</h2>
           <ion-item>
@@ -103,7 +103,7 @@
       </form>
     </div>
     <div *ngSwitchCase="'card'" class="card-example-view">
-      <form class="sample-form card-form" [formGroup]="card_form" (ngSubmit)="createCard()">
+      <form class="form card-form" [formGroup]="card_form" (ngSubmit)="createCard()">
         <section class="form-section">
           <h2 class="section-title">{{'CREDICT_CARD_INFORMATION' | translate}}</h2>
           <ion-item>

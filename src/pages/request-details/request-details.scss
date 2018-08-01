@@ -14,10 +14,10 @@ page-request-details {
     }
   }
 
-  .forms-examples-content {
+  .forms-content {
     background-color: color($colors, background, base);
 
-    .forms-examples-segment {
+    .forms-segment {
       padding: 14px 0;
       background-color: $white;
       @include element-shadow();
@@ -29,7 +29,7 @@ page-request-details {
       }
     }
 
-    .sample-form {
+    .form {
       .form-section {
         padding: 0 14px;
 
