@@ -17,6 +17,7 @@ export class TabsNavigationPage {
 
   constructor() {
     this.tab1Root = RequestDetailsPage;
+    // this.tab1Root = MapsPage;
     this.tab2Root = ProfilePage;
     this.tab3Root = NotificationsPage;
   }

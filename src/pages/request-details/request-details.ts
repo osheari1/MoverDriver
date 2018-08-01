@@ -2,15 +2,14 @@ import { Component } from '@angular/core';
 import {
   NavController,
   NavParams,
-  SegmentButton,
   AlertController,
   Platform,
   normalizeURL
 } from 'ionic-angular';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
-import { counterRangeValidator } from '../../components/counter-input/counter-input';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Crop } from '@ionic-native/crop';
+import {EquipmentOptionsPage} from "../equipment-options/equipment-options";
 
 /**
  * Generated class for the RequestDetailsPage page.
@@ -18,17 +17,7 @@ import { Crop } from '@ionic-native/crop';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
-//TODO: things to add:
-// - description
-// -
-// - Requires breakdown
-// - Weight
-// - Need helper?
-// - Need to use stairs
-// - Can use elevator
-// - Has hardwood floors
-// - Ride with helper?
+//TODO: Update image picker to convert to string64
 
 @Component({
   selector: 'page-request-details',
@@ -55,9 +44,15 @@ export class RequestDetailsPage {
       time: new FormControl('', Validators.required),
       weight: new FormControl(100),
       comments: new FormControl(''),
-    })
+      requiresBreakdown: new FormControl(false),
+      needHelper: new FormControl(false),
+      canUseElevator: new FormControl(false),
+      hasHardwood: new FormControl(false)
+    });
 
+    // Keep job request from previous page
     this.jobRequest = navParams.data;
+
 
   }
 
@@ -74,8 +69,7 @@ export class RequestDetailsPage {
              for (var i = 0; i < results.length; i++) {
                this.cropService.crop(results[i], {quality: 75}).then(
                  newImage => {
-                   let image  = normalizeURL(newImage);
-                   this.selected_image = image;
+                   this.selected_image = normalizeURL(newImage);
                  },
                  error => console.error("Error cropping image", error)
                );
@@ -87,6 +81,17 @@ export class RequestDetailsPage {
    )
   }
 
+  passJobRequest() {
+    // Merge request data into single object
+    const form_data = this.form.getRawValue();
+    const jobRequest = {
+      ...this.jobRequest,
+      ...form_data,
+      ...{image: this.selected_image}
+    };
+
+    this.navCtrl.push(EquipmentOptionsPage, jobRequest);
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RequestDetailsPage');

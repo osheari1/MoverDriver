@@ -4,6 +4,7 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+<!--suppress HtmlUnknownAttribute -->
 <ion-header>
   <ion-navbar>
     <ion-title>{{'REQUEST_DETAILS' | translate}}</ion-title>
@@ -27,17 +28,16 @@
           </button>
         <preload-image *ngIf="selected_image" [ratio]="{w:1, h:1}" [src]="selected_image" alt="image" title="Item Image">
         </preload-image>
-      </section>
 
-      <ion-item class="range-item">
-        <ion-label>
-          <h2 class="range-label">{{'WEIGHT_ESTIMATE' | translate}}</h2>
-          <h3 class="range-value">{{form.controls.weight.value}} lbs.</h3>
-        </ion-label>
-        <ion-range formControlName="weight" min="0" max="1000" step="10" snaps="true" pin="false"></ion-range>
-      </ion-item>
+        <ion-item class="range-item">
+          <ion-label>
+            <h2 class="range-label">{{'WEIGHT_ESTIMATE' | translate}}</h2>
+            <h3 class="range-value">{{form.controls.weight.value}} lbs.</h3>
+          </ion-label>
+          <ion-range formControlName="weight" min="0" max="1000" step="10" snaps="true" pin="false"></ion-range>
+        </ion-item>
 
-      <section class="form-section">
+        <!-- DATE AND TIME  -->
         <ion-row no-padding class="multi-input-row">
           <ion-col no-padding width-60>
             <ion-item class="multi-input time-item">
@@ -53,20 +53,45 @@
         </ion-row>
       </section>
 
+      <section class="form-section">
+        <h2 class="section-title">{{'ADDITIONAL_DETAILS' | translate}}</h2>
 
-      <h2 class="section-title">{{'ADDITIONAL_DETAILS' | translate}}</h2>
+        <ion-list class="card-preferences">
+          <ion-item class="switcher-item">
+            <ion-label>{{'REQUIRES_BREAKDOWN' | translate}}</ion-label>
+            <ion-toggle formControlName="requiresBreakdown"></ion-toggle>
+          </ion-item>
+
+          <ion-item class="switcher-item">
+            <ion-label>{{'NEED_HELPER' | translate}}</ion-label>
+            <ion-toggle formControlName="needHelper"></ion-toggle>
+          </ion-item>
+
+          <ion-item class="switcher-item">
+            <ion-label>{{'CAN_USE_ELEVATOR' | translate}}</ion-label>
+            <ion-toggle formControlName="canUseElevator"></ion-toggle>
+          </ion-item>
+
+          <ion-item class="switcher-item">
+            <ion-label>{{'HAS_HARDWOOD' | translate}}</ion-label>
+            <ion-toggle formControlName="hasHardwood"></ion-toggle>
+          </ion-item>
+        </ion-list>
 
 
+        <!-- ADDITIONAL COMMENTS -->
+        <ion-item>
+          <ion-textarea rows="7" placeholder="Add additional comments..." formControlName="comments"></ion-textarea>
+        </ion-item>
 
-      <!-- ADDITIONAL COMMENTS -->
-      <ion-item>
-        <ion-textarea rows="7" placeholder="Add additional comments..." formControlName="comments"></ion-textarea>
-      </ion-item>
+      </section>
 
 
-      <!-- <section class="form-section">
-          <button ion-button block class="form-action-button create-post-button" type="submit" [disabled]="!post_form.valid">Post!</button>
-        </section> -->
+      <section class="form-section">
+        <button ion-button block class="form-action-button create-post-button" type="submit" [disabled]="!form.valid">
+          Next
+        </button>
+      </section>
     </form>
   </div>
   <!-- </div> -->

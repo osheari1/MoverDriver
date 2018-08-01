@@ -54,7 +54,6 @@
   "CARD_NUMBER": "Numero de tarjeta",
   "CARD_HOLDER": "Titular de la tarjeta",
   "SAVE_THIS_CARD": "Guardar esta tarjeta",
-  "FORMS": "Formularios",
   "FUNCTIONALITIES": "Funcionalidades",
   "NOT_LOGGED_GOOGLE": "No te has vinculado con la cuenta de Google aun.",
   "CONNECT_WITH_GOOGLE": "Conectate con google",
@@ -138,5 +137,9 @@
   "REQUEST_DETAILS": "Request Details",
   "WEIGHT_ESTIMATE": "Weight Estimate",
   "PICKUP_TIME": "Pickup Time",
-  "ADDITIONAL_DETAILS": "Additional Details"
+  "ADDITIONAL_DETAILS": "Additional Details",
+  "REQUIRES_BREAKDOWN": "Does the item need to be taken apart?",
+  "HAS_HARDWOOD": "Is your floor hardwood?",
+  "NEED_HELPER": "Will the mover need an Helper?",
+  "CAN_USE_ELEVATOR": "Can an elevator be used?"
 }

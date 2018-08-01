@@ -99,7 +99,6 @@
   "GET_READY!": "إستعد!",
   "ALMOST_DONE!": "يكاد ينتهي!",
   "HOME": "استهلال",
-  "FORMS": "إستمارات",
   "LISTING": "قائمة",
   "FACEBOOK_INTEGRATION": "التكامل الفيسبوك",
   "GOOGLE_INTEGRATION": "دمج غوغل",
@@ -138,5 +137,9 @@
   "REQUEST_DETAILS": "Request Details",
   "WEIGHT_ESTIMATE": "Weight Estimate",
   "PICKUP_TIME": "Pickup Time",
-  "ADDITIONAL_DETAILS": "Additional Details"
+  "ADDITIONAL_DETAILS": "Additional Details",
+  "REQUIRES_BREAKDOWN": "Does the item need to be taken apart?",
+  "HAS_HARDWOOD": "Is your floor hardwood?",
+  "NEED_HELPER": "Will the mover need an Helper?",
+  "CAN_USE_ELEVATOR": "Can an elevator be used?"
 }
