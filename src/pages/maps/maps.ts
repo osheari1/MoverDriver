@@ -202,6 +202,7 @@ export class MapsPage implements OnInit {
     this.nav.push(
       RequestDetailsPage,
       {
+        locations: env.map_model.locations,
         distance: env.map_model.distance,
         duration: env.map_model.duration
       }
