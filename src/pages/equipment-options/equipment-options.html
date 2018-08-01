@@ -11,6 +11,7 @@
 </ion-header>
 
 
+<!--TODO: Add sliding segments-->
 <ion-content class="forms-content">
 
   <ion-segment class="forms-segment" [(ngModel)]="section" (ionChange)="onSegmentChanged($event)">
@@ -30,8 +31,26 @@
 
     <div *ngSwitchCase="'truck'" class="truck-view">
       <form class="form truck-form" [formGroup]="truckForm" (ngSubmit)="submitJobRequest()">
+        <!--TRUCK DETAILS-->
         <section class="form-section">
-          <h2 class="section-title">ENTER TRUCK DETAILS HERE</h2>
+          <ion-card>
+
+            <preload-image [ratio]="{w:1, h:1}"
+                           [src]="options.truck.img"
+                           title="options.truck.title">
+            </preload-image>
+
+            <ion-card-content>
+              <ion-card-title>
+                <!--TODO: Add Truck card content -->
+              </ion-card-title>
+              <p>
+                <!--TODO: Add Truck card description -->
+              </p>
+            </ion-card-content>
+
+
+          </ion-card>
         </section>
       </form>
     </div>
@@ -39,7 +58,21 @@
     <div *ngSwitchCase="'large-truck'" class="truck-view">
       <form class="form truck-form" [formGroup]="largeTruckForm" (ngSubmit)="submitJobRequest()">
         <section class="form-section">
-          <h2 class="section-title">ENTER LARGE TRUCK DETAILS HERE</h2>
+          <ion-card>
+            <preload-image [ratio]="{w:1, h:1}"
+                           [src]="options.largeTruck.img"
+                           title="options.largeTruck.title">
+            </preload-image>
+
+            <ion-card-content>
+              <ion-card-title>
+                <!--TODO: Add Large Truck card content -->
+              </ion-card-title>
+              <p>
+                <!--TODO: Add Large Truck card description -->
+              </p>
+            </ion-card-content>
+          </ion-card>
         </section>
       </form>
     </div>
@@ -47,7 +80,23 @@
     <div *ngSwitchCase="'box-van'" class="truck-view">
       <form class="form truck-form" [formGroup]="boxVanForm" (ngSubmit)="submitJobRequest()">
         <section class="form-section">
-          <h2 class="section-title">ENTER BOX VAN DETAILS</h2>
+          <ion-card>
+            <preload-image [ratio]="{w:1, h:1}"
+                           [src]="options.boxVan.img"
+                           title="options.boxVan.title">
+            </preload-image>
+
+            <ion-card-content>
+              <ion-card-title>
+                <!--TODO: Add Box Van card content -->
+              </ion-card-title>
+              <p>
+                <!--TODO: Add Box Van card description -->
+              </p>
+            </ion-card-content>
+
+
+          </ion-card>
         </section>
       </form>
     </div>
