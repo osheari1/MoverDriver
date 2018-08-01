@@ -5,6 +5,7 @@ import { RequestDetailsPage } from '../request-details/request-details';
 import { ListingPage } from '../listing/listing';
 import { ProfilePage } from '../profile/profile';
 import { NotificationsPage } from '../notifications/notifications';
+import {EquipmentOptionsPage} from "../equipment-options/equipment-options";
 
 @Component({
   selector: 'tabs-navigation',
@@ -16,8 +17,9 @@ export class TabsNavigationPage {
   tab3Root: any;
 
   constructor() {
-    this.tab1Root = RequestDetailsPage;
+    // this.tab1Root = RequestDetailsPage;
     // this.tab1Root = MapsPage;
+    this.tab1Root = EquipmentOptionsPage;
     this.tab2Root = ProfilePage;
     this.tab3Root = NotificationsPage;
   }
