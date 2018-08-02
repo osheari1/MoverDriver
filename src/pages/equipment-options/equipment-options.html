@@ -12,95 +12,205 @@
 
 
 <!--TODO: Add sliding segments-->
+<!--TODO: Use *ngFor to define segments-->
 <ion-content class="forms-content">
 
   <ion-segment class="forms-segment" [(ngModel)]="section" (ionChange)="onSegmentChanged($event)">
     <ion-segment-button value="truck" (ionSelect)="onSegmentSelected($event)">
       {{'TRUCK' | translate}}
     </ion-segment-button>
-    <ion-segment-button value="large-truck" (ionSelect)="onSegmentSelected($event)">
+    <ion-segment-button value="largeTruck" (ionSelect)="onSegmentSelected($event)">
       {{'LARGE_TRUCK' | translate}}
     </ion-segment-button>
-    <ion-segment-button value="box-van" (ionSelect)="onSegmentSelected($event)">
+    <ion-segment-button value="boxVan" (ionSelect)="onSegmentSelected($event)">
       {{'BOX_VAN' | translate}}
     </ion-segment-button>
   </ion-segment>
 
-
-  <div [ngSwitch]="section" class="forms-wrapper">
-
-    <div *ngSwitchCase="'truck'" class="truck-view">
-      <form class="form truck-form" [formGroup]="truckForm" (ngSubmit)="submitJobRequest()">
+  <div [ngSwitch]="section" class="forms-wrapper form">
+    <div *ngSwitchCase="'truck'">
+      <form [formGroup]="truckForm" (ngSubmit)="submitJobRequest()">
         <!--TRUCK DETAILS-->
-        <section class="form-section">
-          <ion-card>
+        <ion-card class="card-item">
+          <preload-image [ratio]="{w:3, h:2}"
+                         [src]="options.truck.img"
+                         title="options.truck.title">
+          </preload-image>
 
-            <preload-image [ratio]="{w:1, h:1}"
-                           [src]="options.truck.img"
-                           title="options.truck.title">
-            </preload-image>
+          <ion-card-content class="card-content">
+            <ion-row>
+              <ion-col width-50>
+                <ion-card-title class="card-title">
+                  Pricing
+                </ion-card-title>
 
-            <ion-card-content>
-              <ion-card-title>
-                <!--TODO: Add Truck card content -->
-              </ion-card-title>
-              <p>
-                <!--TODO: Add Truck card description -->
-              </p>
-            </ion-card-content>
+                <div>
+                  <p class="item-text">
+                    Base Fee: ${{ options.truck.pricing.baseFee }}
+                  </p>
 
+                  <p class="item-text">
+                    Minimum: ${{ options.truck.pricing.minimumFee }}
+                  </p>
+                  <p class="item-text">
+                    Charge Per Mile: ${{ options.truck.pricing.feePerMile }}
+                  </p>
+                </div>
 
-          </ion-card>
-        </section>
+              </ion-col>
+
+              <ion-col width-50>
+                <ion-card-title class="card-title">
+                  Dimensions
+                </ion-card-title>
+                <div>
+                  <p class="item-text">
+                    Bed Size:
+                    {{ options.truck.dimensions.bedDims[0] }}
+                    x
+                    {{ options.truck.dimensions.bedDims[1] }} ft
+
+                  </p>
+
+                  <p class="item-text">
+                    Engine Capacity:
+                    {{ options.truck.dimensions.engine[0] }}-{{ options.truck.dimensions.engine[1] }} cyl.
+
+                  </p>
+                  <p class="item-text">
+                    Max Weight: {{ options.truck.dimensions.maxWeight }} lbs
+                  </p>
+                </div>
+
+              </ion-col>
+
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
       </form>
     </div>
 
-    <div *ngSwitchCase="'large-truck'" class="truck-view">
-      <form class="form truck-form" [formGroup]="largeTruckForm" (ngSubmit)="submitJobRequest()">
-        <section class="form-section">
-          <ion-card>
-            <preload-image [ratio]="{w:1, h:1}"
-                           [src]="options.largeTruck.img"
-                           title="options.largeTruck.title">
-            </preload-image>
+    <div *ngSwitchCase="'largeTruck'">
+      <form [formGroup]="largeTruckForm" (ngSubmit)="submitJobRequest()">
+        <ion-card class="card-item">
+          <preload-image [ratio]="{w:3, h:2}"
+                         [src]="options.largeTruck.img"
+                         title="options.largeTruck.title">
+          </preload-image>
 
-            <ion-card-content>
-              <ion-card-title>
-                <!--TODO: Add Large Truck card content -->
-              </ion-card-title>
-              <p>
-                <!--TODO: Add Large Truck card description -->
-              </p>
-            </ion-card-content>
-          </ion-card>
-        </section>
+          <ion-card-content class="card-content">
+            <ion-row>
+              <ion-col width-50>
+                <ion-card-title class="card-title">
+                  Pricing
+                </ion-card-title>
+
+                <div>
+                  <p class="item-text">
+                    Base Fee: ${{ options.largeTruck.pricing.baseFee }}
+                  </p>
+
+                  <p class="item-text">
+                    Minimum: ${{ options.largeTruck.pricing.minimumFee }}
+                  </p>
+                  <p class="item-text">
+                    Charge Per Mile: ${{ options.largeTruck.pricing.feePerMile }}
+                  </p>
+                </div>
+
+              </ion-col>
+
+              <ion-col width-50>
+                <ion-card-title class="card-title">
+                  Dimensions
+                </ion-card-title>
+                <div>
+                  <p class="item-text">
+                    Bed Size:
+                    {{ options.largeTruck.dimensions.bedDims[0] }}
+                    x
+                    {{ options.largeTruck.dimensions.bedDims[1] }} ft
+
+                  </p>
+
+                  <p class="item-text">
+                    Engine Capacity:
+                    {{ options.largeTruck.dimensions.engine[0] }}-{{ options.largeTruck.dimensions.engine[1] }} cyl.
+
+                  </p>
+                  <p class="item-text">
+                    Max Weight: {{ options.largeTruck.dimensions.maxWeight }} lbs
+                  </p>
+                </div>
+
+              </ion-col>
+
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
       </form>
     </div>
 
-    <div *ngSwitchCase="'box-van'" class="truck-view">
-      <form class="form truck-form" [formGroup]="boxVanForm" (ngSubmit)="submitJobRequest()">
-        <section class="form-section">
-          <ion-card>
-            <preload-image [ratio]="{w:1, h:1}"
-                           [src]="options.boxVan.img"
-                           title="options.boxVan.title">
-            </preload-image>
+    <div *ngSwitchCase="'boxVan'">
+      <form [formGroup]="boxVanForm" (ngSubmit)="submitJobRequest()">
+        <ion-card class="card-item">
+          <preload-image [ratio]="{w:3, h:2}"
+                         [src]="options.boxVan.img"
+                         title="options.boxVan.title">
+          </preload-image>
 
-            <ion-card-content>
-              <ion-card-title>
-                <!--TODO: Add Box Van card content -->
-              </ion-card-title>
-              <p>
-                <!--TODO: Add Box Van card description -->
-              </p>
-            </ion-card-content>
+          <ion-card-content class="card-content">
+            <ion-row>
+              <ion-col width-50>
+                <ion-card-title class="card-title">
+                  Pricing
+                </ion-card-title>
 
+                <div>
+                  <p class="item-text">
+                    Base Fee: ${{ options.boxVan.pricing.baseFee }}
+                  </p>
 
-          </ion-card>
-        </section>
+                  <p class="item-text">
+                    Minimum: ${{ options.boxVan.pricing.minimumFee }}
+                  </p>
+                  <p class="item-text">
+                    Charge Per Mile: ${{ options.boxVan.pricing.feePerMile }}
+                  </p>
+                </div>
+
+              </ion-col>
+
+              <ion-col width-50>
+                <ion-card-title class="card-title">
+                  Dimensions
+                </ion-card-title>
+                <div>
+                  <p class="item-text">
+                    Bed Size:
+                    {{ options.boxVan.dimensions.bedDims[0] }}
+                    x
+                    {{ options.boxVan.dimensions.bedDims[1] }} ft
+
+                  </p>
+
+                  <p class="item-text">
+                    Engine Capacity:
+                    {{ options.boxVan.dimensions.engine[0] }}-{{ options.boxVan.dimensions.engine[1] }} cyl.
+
+                  </p>
+                  <p class="item-text">
+                    Max Weight: {{ options.boxVan.dimensions.maxWeight }} lbs
+                  </p>
+                </div>
+
+              </ion-col>
+
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
       </form>
     </div>
-
   </div>
 
 </ion-content>

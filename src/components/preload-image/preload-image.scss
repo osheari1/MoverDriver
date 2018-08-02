@@ -30,8 +30,8 @@ preload-image {
   img
   {
     position: absolute;
-		left: 0px;
-		top: 0px;
+    left: 0;
+    top: 0;
 		visibility: hidden;
 		opacity: 0;
 		transition: visibility 0s linear, opacity 0.5s linear;
@@ -42,5 +42,6 @@ preload-image {
     max-height: inherit !important;
     min-width: inherit !important;
     min-height: inherit !important;
+
   }
 }
