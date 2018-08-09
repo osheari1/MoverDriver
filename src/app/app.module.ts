@@ -9,6 +9,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { environment } from '../environment/environment';
 
 //pages
+import {CalcUtilsProvider} from "../providers/calc-utils/calc-utils";
 import {EquipmentOptionsPage} from "../pages/equipment-options/equipment-options";
 import { RequestDetailsPage } from '../pages/request-details/request-details';
 import { ListingPage } from '../pages/listing/listing';
@@ -309,6 +310,7 @@ export function createTranslateLoader(http: HttpClient) {
 		ImagePicker,
 		Crop,
 		EmailComposer,
+    CalcUtilsProvider,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import { GoogleMap } from "../../components/google-map/google-map";
 import { GoogleMapsService } from "./maps.service";
 import { MapsModel, MapPlace } from './maps.model';
+import {CalcUtilsProvider} from "../../providers/calc-utils/calc-utils";
 
 // TODO: ADD directions for multi stop.
 
@@ -109,9 +110,9 @@ export class MapsPage implements OnInit {
     searchQueryIdx: number
   ) {
     let env = this;
-
     env.map_model.searchQueries[searchQueryIdx] = place.description;
     env.map_model.searchPlacesPredictions[searchQueryIdx] = [];
+    env.map_model.locations[searchQueryIdx].address = place.description;
 
     // We need to get the location from this place. Let's geocode this place!
     env.GoogleMapsService.geocodePlace(place.place_id).subscribe(
@@ -146,7 +147,7 @@ export class MapsPage implements OnInit {
       let current_location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       env.map_model.searchQueries[searchQueryIdx] = position.coords.latitude.toFixed(2) + ", " + position.coords.longitude.toFixed(2);
       // env.setOrigin(current_location);
-      env.setDestination(current_location, searchQueryIdx)
+      env.setDestination(current_location, searchQueryIdx);
       env.map_model.using_geolocation = true;
 
       _loading.dismiss();
@@ -161,10 +162,10 @@ export class MapsPage implements OnInit {
 
     let directions_obs = env.GoogleMapsService.getDirections(
       origin.location, destination.location
-    )
+    );
     let distance_obs = env.GoogleMapsService.getDistanceMatrix(
       origin.location, destination.location
-    )
+    );
 
     Observable.forkJoin(directions_obs, distance_obs).subscribe(
       data => {
@@ -203,7 +204,7 @@ export class MapsPage implements OnInit {
       RequestDetailsPage,
       {
         locations: env.map_model.locations,
-        distance: env.map_model.distance,
+        distance: CalcUtilsProvider.convertMetersToMiles(env.map_model.distance),
         duration: env.map_model.duration
       }
     );

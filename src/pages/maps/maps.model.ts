@@ -109,6 +109,7 @@ export class MapsModel {
 export class MapPlace {
 	marker: google.maps.Marker;
 	location: google.maps.LatLng;
+  address: string;
 	selected: boolean = false;
 	// This is an extra attribute for nearby places only
 	details: google.maps.places.PlaceResult;

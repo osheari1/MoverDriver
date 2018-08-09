@@ -20,47 +20,108 @@ page-equipment-options {
         @include segment-text-styles($white-d);
       }
     }
+    .card-item {
+      @include basic-card-styles($white-d);
 
-    .form {
-      padding: 0 5px;
+      preload-image {
+        height: 100%;
+        width: 100%;
+        //max-height: $image-height;
+        //max-width: $image-width;
+        max-height: 100%;
+        max-width: 100%;
 
-      .card-item {
-        @include basic-card-styles($white-d);
-
-        preload-image {
-          height: 100%;
-          width: 100%;
-          //max-height: $image-height;
-          //max-width: $image-width;
-          max-height: 100%;
-          max-width: 100%;
-
+        margin: auto;
+        img {
           margin: auto;
-          img {
-            margin: auto;
+        }
+      }
+
+      .card-title {
+        font-size: 1.5rem;
+        margin: 0;
+        margin-bottom: 12px;
+        padding: 0;
+        letter-spacing: 1.1px;
+        color: $theme-color-2;
+      }
+
+    }
+
+    .summary-item {
+      padding: 0 30px;
+      margin: 0;
+      background-color: $white;
+      border: none !important;
+      color: $theme-color-2;
+      @include element-shadow();
+
+      .item-inner {
+        padding: 0;
+        border: none;
+      }
+
+      ion-label {
+        flex: 1;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin: 0;
+
+        .summary-value {
+          font-size: 1.4rem;
+          font-weight: 500;
+          letter-spacing: 0.2px;
+          text-align: center;
+          color: $white-d;
+          flex: 0 1 76%;
+          max-width: 76%;
+          margin: 0px;
+
+          &:first-child {
+            text-align: left;
+          }
+
+          &:last-child {
+            text-align: right;
           }
         }
 
-        .card-title {
-          font-size: 1.5rem;
-          margin: 0;
-          margin-bottom: 12px;
-          padding: 0;
-          letter-spacing: 1.1px;
+        .summary-label {
+          font-size: 1.4rem;
+          font-weight: 500;
+          letter-spacing: 0.2px;
+          text-align: center;
           color: $theme-color-2;
+          flex: 0 1 76%;
+          max-width: 76%;
+          margin: 0px;
+
+          &:first-child {
+            text-align: left;
+          }
         }
+
+
 
       }
     }
 
     .section-title {
-      font-size: 1.8rem;
+      font-size: 2.2rem;
       line-height: 1.2;
       letter-spacing: 1.1px;
       text-align: center;
       color: $theme-color-2;
-      font-weight: 400;
+      font-weight: 500;
+      margin: 21px;
+    }
+    .job-request-button {
       margin: 0;
+      margin-top: 20px;
+
+      @include call-to-action-button-styles(color($colors, button, base), color($colors, button, contrast));
     }
   }
+
 }
