@@ -1,12 +1,13 @@
 import { Injectable } from "@angular/core";
 import { Platform } from 'ionic-angular';
 import 'rxjs/add/operator/toPromise';
-import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { TwitterConnect } from '@ionic-native/twitter-connect';
 import { AngularFirestore } from 'angularfire2/firestore';
+import {AngularFireAuth} from "angularfire2/auth";
+
 // import { environment } from '../../environment/environment';
 
 @Injectable()
@@ -16,6 +17,7 @@ export class FirebaseAuthService {
 
   constructor(
     public afAuth: AngularFireAuth,
+    public afStore: AngularFirestore,
     public googlePlus: GooglePlus,
     public fb: Facebook,
     public tw: TwitterConnect,
@@ -49,7 +51,7 @@ export class FirebaseAuthService {
   doLogout(): Promise<any> {
     return new Promise((resolve, reject) => {
       if (firebase.auth().currentUser) {
-        this.afAuth.auth.signOut()
+        this.afAuth.auth.signOut();
         resolve();
       }
       else {
@@ -60,34 +62,14 @@ export class FirebaseAuthService {
 
   getCurrentUser(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
-      firebase.auth().onAuthStateChanged(function(user) {
-        let userModel = {
-          id: "",
-          name: "",
-          image: "",
-          provider: ""
-        };
+      firebase.auth().onAuthStateChanged(user => {
         if (user) {
-          if (!user.photoURL) {
-            userModel.id = user.uid;
-            userModel.image = 'http://dsi-vd.github.io/patternlab-vd/images/fpo_avatar.png';
-            userModel.name = user.displayName;
-            userModel.provider = user.providerData[0].providerId;
-            return resolve(userModel);
-          }
-          else {
-            userModel.id = user.uid;
-            userModel.image = user.photoURL;
-            userModel.name = user.displayName;
-            userModel.provider = user.providerData[0].providerId;
-            return resolve(userModel);
-          }
-
+          resolve(user);
         } else {
           reject('No user logged in');
         }
-      })
-    })
+      });
+    });
   }
 
   getUserImage(personId) {
@@ -162,13 +144,16 @@ export class FirebaseAuthService {
   }
 
 
+  // doRegister(value): Promise<any> {
+  //   return new Promise<any>((resolve, reject) => {
+  //     this.afAuth.auth.createUserWithEmailAndPassword(value.email, value.password)
+  //       .then(res => {
+  //         resolve(res);
+  //       }, err => reject(err))
+  //   })
+  // }
   doRegister(value): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.afAuth.auth.createUserWithEmailAndPassword(value.email, value.password)
-        .then(res => {
-          resolve(res);
-        }, err => reject(err))
-    })
+    return this.afAuth.auth.createUserWithEmailAndPassword(value.email, value.password)
   }
 
 

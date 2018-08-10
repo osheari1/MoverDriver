@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { environment } from '../environment/environment';
+// import { Camera } from '@ionic-native/camera';
 
 //pages
 import {CalcUtilsProvider} from "../providers/calc-utils/calc-utils";
@@ -112,6 +113,7 @@ import { EmailComposer } from '@ionic-native/email-composer';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import {ClientDatabaseProvider} from '../providers/client-database/client-database';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -122,15 +124,7 @@ export function createTranslateLoader(http: HttpClient) {
 // class CameraMock extends Camera {
 //   getPicture(options) {
 //     return new Promise( (resolve, reject) => {
-//       resolve(`TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx
-//         5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlzIHNpbmd1b
-//         GFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGl
-//         jaCBpcyBhIGx1c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgY
-//         SBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29
-//         udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb
-//         24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRoZSBzaG9ydCB
-//         2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4=`);
-//       });
+//       resolve(`TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlzIHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRoZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4=`); });
 //   }
 // }
 
@@ -311,6 +305,7 @@ export function createTranslateLoader(http: HttpClient) {
 		Crop,
 		EmailComposer,
     CalcUtilsProvider,
+    ClientDatabaseProvider,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

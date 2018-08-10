@@ -113,7 +113,6 @@ export class MapPlace {
 	selected: boolean = false;
 	// This is an extra attribute for nearby places only
 	details: google.maps.places.PlaceResult;
-
 	// https://developers.google.com/maps/documentation/javascript/reference#Symbol
 	static createIcon(color: string) : google.maps.Symbol {
     let _icon: google.maps.Symbol = {

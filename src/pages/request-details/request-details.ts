@@ -27,7 +27,7 @@ export class RequestDetailsPage {
 
   jobRequest: any;
   form: FormGroup;
-  selected_image: any;
+  selected_image: any = "";
 
   constructor(
     public navCtrl: NavController,
