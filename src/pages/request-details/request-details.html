@@ -5,6 +5,7 @@
   Ionic pages and navigation.
 -->
 <!--suppress HtmlUnknownAttribute -->
+<!--TODO: Remove data on back button hit-->
 <ion-header>
   <ion-navbar>
     <ion-title>{{'REQUEST_DETAILS' | translate}}</ion-title>
@@ -15,7 +16,7 @@
 <ion-content class="forms-content">
   <!-- <div class="forms-wrapper"> -->
   <div class="post-example-view">
-    <form class="form post-form" [formGroup]="form" (ngSubmit)="passJobRequest()">
+    <form class="form post-form" [formGroup]="form">
 
       <section class="form-section">
         <ion-item>
@@ -89,7 +90,8 @@
 
 
       <section class="form-section">
-        <button ion-button block class="form-action-button create-post-button" type="submit" [disabled]="!form.valid">
+        <button ion-button block class="form-action-button create-post-button" (click)="passJobRequest()"
+                [disabled]="!form.valid">
           Next
         </button>
       </section>

@@ -7,7 +7,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { environment } from '../environment/environment';
-// import { Camera } from '@ionic-native/camera';
+import {Camera} from '@ionic-native/camera';
+import {CameraMock} from '@ionic-native-mocks/camera';
 
 //pages
 import {CalcUtilsProvider} from "../providers/calc-utils/calc-utils";
@@ -106,6 +107,7 @@ import { TwitterConnect } from '@ionic-native/twitter-connect';
 import { AdMobFree } from '@ionic-native/admob-free';
 import { AppRate } from '@ionic-native/app-rate';
 import { ImagePicker } from '@ionic-native/image-picker';
+import {ImagePickerMock} from '@ionic-native-mocks/image-picker';
 import { Crop } from '@ionic-native/crop';
 import { EmailComposer } from '@ionic-native/email-composer';
 
@@ -301,7 +303,11 @@ export function createTranslateLoader(http: HttpClient) {
     TwitterConnect,
 		AdMobFree,
 		AppRate,
-		ImagePicker,
+
+    {provide: ImagePicker, useClass: ImagePickerMock},
+    // {provide: Camera, useClass: CameraMock},
+    Camera,
+
 		Crop,
 		EmailComposer,
     CalcUtilsProvider,

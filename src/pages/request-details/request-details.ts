@@ -4,10 +4,11 @@ import {
   NavParams,
   AlertController,
   Platform,
-  normalizeURL
+  // normalizeURL
 } from 'ionic-angular';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ImagePicker } from '@ionic-native/image-picker';
+import {Camera, CameraOptions} from '@ionic-native/camera';
 import { Crop } from '@ionic-native/crop';
 import {EquipmentOptionsPage} from "../equipment-options/equipment-options";
 
@@ -17,7 +18,6 @@ import {EquipmentOptionsPage} from "../equipment-options/equipment-options";
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-//TODO: Update image picker to convert to string64
 
 @Component({
   selector: 'page-request-details',
@@ -30,15 +30,14 @@ export class RequestDetailsPage {
   selected_image: any = "";
 
   constructor(
+    private camera: Camera,
     public navCtrl: NavController,
     public navParams: NavParams,
     public alertCtrl: AlertController,
     public cropService: Crop,
     public imagePicker: ImagePicker,
-    public platform: Platform
-
+    private platform: Platform
   ) {
-
     // Keep job request from previous page
     this.jobRequest = navParams.data;
 
@@ -54,44 +53,69 @@ export class RequestDetailsPage {
       hasHardwood: new FormControl(false)
     });
 
-
-
   }
 
-  openImagePicker(){
-   this.imagePicker.hasReadPermission().then(
-     (result) => {
-       if(result == false){
-         // no callbacks required as this opens a popup which returns async
-         this.imagePicker.requestReadPermission();
-       }
-       else if(result == true){
-         this.imagePicker.getPictures({ maximumImagesCount: 1 }).then(
-           (results) => {
-             for (var i = 0; i < results.length; i++) {
-               this.cropService.crop(results[i], {quality: 75}).then(
-                 newImage => {
-                   this.selected_image = normalizeURL(newImage);
-                 },
-                 error => console.error("Error cropping image", error)
-               );
-             }
-           }, (err) => console.log(err)
-         );
-       }
-     }
-   )
+  // TODO: Add option to take picture
+  openImagePicker(): void {
+    //setup camera options
+    this.platform.ready().then(() => {
+      const cameraOptions: CameraOptions = {
+        quality: 50,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+        encodingType: this.camera.EncodingType.PNG,
+        mediaType: this.camera.MediaType.PICTURE,
+        allowEdit: true,
+      };
+
+      this.camera.getPicture(cameraOptions).then((imageData) => {
+        let base64Image = 'data:image/jpeg;base64,' + imageData;
+        if (base64Image) {
+          this.selected_image = base64Image;
+        } else {
+          console.log('Could not take picture');
+        }
+      }, err => {
+        console.log('Could not load image');
+        console.log(err);
+      });
+    });
   }
+
+  // openImagePicker(){
+  //  this.imagePicker.hasReadPermission().then(
+  //    (result) => {
+  //      if(result == false){
+  //        // no callbacks required as this opens a popup which returns async
+  //        this.imagePicker.requestReadPermission();
+  //      }
+  //      else if(result == true){
+  //        this.imagePicker.getPictures({ maximumImagesCount: 1 }).then(
+  //          (results) => {
+  //            for (var i = 0; i < results.length; i++) {
+  //              this.cropService.crop(results[i], {quality: 75}).then(
+  //                newImage => {
+  //                  this.selected_image = normalizeURL(newImage);
+  //                },
+  //                error => console.error("Error cropping image", error)
+  //              );
+  //            }
+  //          }, (err) => console.log(err)
+  //        );
+  //      }
+  //    }
+  //  )
+  // }
 
   passJobRequest() {
     // Merge request data into single object
+    console.log("passing Job Request");
     const form_data = this.form.getRawValue();
     const jobRequest = {
       ...this.jobRequest,
       ...form_data,
       ...{image: this.selected_image}
     };
-
     this.navCtrl.push(EquipmentOptionsPage, jobRequest);
   }
 

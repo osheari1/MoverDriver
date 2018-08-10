@@ -76,7 +76,7 @@ page-equipment-options {
           color: $white-d;
           flex: 0 1 76%;
           max-width: 76%;
-          margin: 0px;
+          margin: 0;
 
           &:first-child {
             text-align: left;
@@ -119,6 +119,7 @@ page-equipment-options {
     .job-request-button {
       margin: 0;
       margin-top: 20px;
+      margin-bottom: 20px;
 
       @include call-to-action-button-styles(color($colors, button, base), color($colors, button, contrast));
     }
