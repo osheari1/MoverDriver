@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {
   NavController,
   NavParams,
+  Navbar,
   AlertController,
   Platform,
   // normalizeURL
@@ -9,8 +10,8 @@ import {
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ImagePicker } from '@ionic-native/image-picker';
 import {Camera, CameraOptions} from '@ionic-native/camera';
-import { Crop } from '@ionic-native/crop';
 import {EquipmentOptionsPage} from "../equipment-options/equipment-options";
+import {MapsPage} from "../maps/maps";
 
 /**
  * Generated class for the RequestDetailsPage page.
@@ -24,6 +25,7 @@ import {EquipmentOptionsPage} from "../equipment-options/equipment-options";
   templateUrl: 'request-details.html',
 })
 export class RequestDetailsPage {
+  @ViewChild(Navbar) navbar: Navbar;
 
   jobRequest: any;
   form: FormGroup;
@@ -34,10 +36,10 @@ export class RequestDetailsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public alertCtrl: AlertController,
-    public cropService: Crop,
     public imagePicker: ImagePicker,
     private platform: Platform
   ) {
+
     // Keep job request from previous page
     this.jobRequest = navParams.data;
 
@@ -107,6 +109,7 @@ export class RequestDetailsPage {
   //  )
   // }
 
+
   passJobRequest() {
     // Merge request data into single object
     console.log("passing Job Request");
@@ -120,6 +123,9 @@ export class RequestDetailsPage {
   }
 
   ionViewDidLoad() {
+    this.navbar.backButtonClick = () => {
+      this.navCtrl.setRoot(MapsPage);
+    };
     console.log('ionViewDidLoad RequestDetailsPage');
   }
 

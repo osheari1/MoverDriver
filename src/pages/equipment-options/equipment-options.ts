@@ -14,8 +14,6 @@ import * as firebase from 'firebase/app';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-// TODO: Update jobRequest on segment change / update
-
 
 @Component({
   selector: 'page-equipment-options',
