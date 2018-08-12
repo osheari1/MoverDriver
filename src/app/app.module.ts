@@ -8,12 +8,15 @@ import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { environment } from '../environment/environment';
 import {Camera} from '@ionic-native/camera';
-import {CameraMock} from '@ionic-native-mocks/camera';
+// import {CameraMock} from '@ionic-native-mocks/camera';
 
 //pages
+import {HistoryPage} from "../pages/history/history";
+import {CurrentJobsPage} from "../pages/current-jobs/current-jobs";
+import {ApprovalPage} from "../pages/approval/approval";
 import {CalcUtilsProvider} from "../providers/calc-utils/calc-utils";
-import {EquipmentOptionsPage} from "../pages/equipment-options/equipment-options";
-import { RequestDetailsPage } from '../pages/request-details/request-details';
+// import {EquipmentOptionsPage} from "../pages/equipment-options/equipment-options";
+// import { RequestDetailsPage } from '../pages/request-details/request-details';
 import { ListingPage } from '../pages/listing/listing';
 import { FeedPage } from '../pages/feed/feed';
 import { FollowersPage } from '../pages/followers/followers';
@@ -115,7 +118,10 @@ import { EmailComposer } from '@ionic-native/email-composer';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import {ClientDatabaseProvider} from '../providers/client-database/client-database';
+
+// Providers
+import {DatabaseProvider} from '../providers/database/database';
+
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -133,8 +139,11 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     MyApp,
-    EquipmentOptionsPage,
-    RequestDetailsPage,
+    ApprovalPage,
+    CurrentJobsPage,
+    HistoryPage,
+    // EquipmentOptionsPage,
+    // RequestDetailsPage,
     ListingPage,
     FeedPage,
     FollowersPage,
@@ -223,8 +232,11 @@ export function createTranslateLoader(http: HttpClient) {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    EquipmentOptionsPage,
-    RequestDetailsPage,
+    ApprovalPage,
+    CurrentJobsPage,
+    HistoryPage,
+    // EquipmentOptionsPage,
+    // RequestDetailsPage,
     ListingPage,
     FeedPage,
     FollowersPage,
@@ -311,7 +323,7 @@ export function createTranslateLoader(http: HttpClient) {
 		Crop,
 		EmailComposer,
     CalcUtilsProvider,
-    ClientDatabaseProvider,
+    DatabaseProvider,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

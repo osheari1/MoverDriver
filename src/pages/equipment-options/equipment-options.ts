@@ -4,7 +4,7 @@ import {FormGroup} from "@angular/forms";
 import {data} from "./data";
 import {CalcUtilsProvider} from "../../providers/calc-utils/calc-utils";
 import {FirebaseAuthService} from "../firebase-integration/firebase-auth.service";
-import {ClientDatabaseProvider} from "../../providers/client-database/client-database";
+import {DatabaseProvider} from "../../providers/database/database";
 import {TabsNavigationPage} from "../tabs-navigation/tabs-navigation";
 import * as firebase from 'firebase/app';
 
@@ -59,7 +59,7 @@ export class EquipmentOptionsPage {
     public loadingCtrl: LoadingController,
     public fAuthService: FirebaseAuthService,
     public alertCtrl: AlertController,
-    public clientDb: ClientDatabaseProvider,
+    public db: DatabaseProvider,
 
   ) {
     this.section = "truck";
@@ -139,7 +139,7 @@ export class EquipmentOptionsPage {
     // Add current user id to job request
     this.fAuthService.getCurrentUser().then(user => {
       // Compile user info
-      this.clientDb.lookupClientProfile(user).then(userRef => {
+      this.db.lookupDriverProfile(user).then(userRef => {
         console.log(userRef.ref);
         this.jobRequest = this.updateJobRequestObject({
           clientRef: userRef.ref
@@ -150,7 +150,7 @@ export class EquipmentOptionsPage {
         let message = this.buildJobRequestMessage();
         console.log(message);
         // Add to requestDB
-        this.clientDb.submitJobRequest(message).then(docRef => {
+        this.db.submitJobRequest(message).then(docRef => {
           this.loading.dismiss().then(() => {
             const alert: Alert = this.alertCtrl.create({
               message: `Submitted job request ${docRef.id}`,

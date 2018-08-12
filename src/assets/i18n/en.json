@@ -141,5 +141,6 @@
   "REQUIRES_BREAKDOWN": "Does the item need to be taken apart?",
   "HAS_HARDWOOD": "Is your floor hardwood?",
   "NEED_HELPER": "Will the mover need an Helper?",
-  "CAN_USE_ELEVATOR": "Can an elevator be used?"
+  "CAN_USE_ELEVATOR": "Can an elevator be used?",
+  "CURRENT_JOBS": "Current Jobs"
 }

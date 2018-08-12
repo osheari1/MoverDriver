@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 
 import { MapsPage } from '../maps/maps';
-// import { RequestDetailsPage } from '../request-details/request-details';
-// import { ListingPage } from '../listing/listing';
 import { ProfilePage } from '../profile/profile';
 import { NotificationsPage } from '../notifications/notifications';
+import {ListingPage} from "../listing/listing";
+import {ApprovalPage} from "../approval/approval";
+import {CurrentJobsPage} from "../current-jobs/current-jobs";
+import {HistoryPage} from "../history/history";
 
-// import {EquipmentOptionsPage} from "../equipment-options/equipment-options";
 
 @Component({
   selector: 'tabs-navigation',
@@ -18,11 +19,8 @@ export class TabsNavigationPage {
   tab3Root: any;
 
   constructor() {
-    // this.tab1Root = ListingPage;
-    // this.tab1Root = RequestDetailsPage;
-    this.tab1Root = MapsPage;
-    // this.tab1Root = EquipmentOptionsPage;
+    this.tab1Root = HistoryPage;
     this.tab2Root = ProfilePage;
-    this.tab3Root = NotificationsPage;
+    this.tab3Root = CurrentJobsPage;
   }
 }

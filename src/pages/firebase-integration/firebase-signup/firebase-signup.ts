@@ -20,7 +20,7 @@ import { PrivacyPolicyPage } from '../../privacy-policy/privacy-policy';
 // import { FirebaseTabsNavigationPage } from '../firebase-tabs-navigation/firebase-tabs-navigation';
 import { TabsNavigationPage } from '../../tabs-navigation/tabs-navigation';
 import { FirebaseAuthService } from '../firebase-auth.service';
-import {ClientDatabaseProvider} from "../../../providers/client-database/client-database";
+import {DatabaseProvider} from "../../../providers/database/database";
 
 
 
@@ -40,7 +40,7 @@ export class FirebaseSignupPage {
     public loadingCtrl: LoadingController,
     public fAuthService: FirebaseAuthService,
     public alertCtrl: AlertController,
-    public clientDb: ClientDatabaseProvider
+    public db: DatabaseProvider
   ) {
 
     this.signup = new FormGroup({
@@ -56,7 +56,7 @@ export class FirebaseSignupPage {
     this.fAuthService.doRegister(value)
       .then(userCredential => {
         let uid = userCredential.uid;
-        this.clientDb.createProfile(value.email, uid).then(() => {
+        this.db.createDriverProfile(value.email, uid).then(() => {
           this.loading.dismiss().then(() => {
             this.nav.setRoot(TabsNavigationPage)
           });

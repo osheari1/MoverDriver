@@ -11,34 +11,30 @@ import 'firebase/storage';
 import DocumentReference = firebase.firestore.DocumentReference;
 
 /*
-  Generated class for the ClientDatabaseProvider provider.
+  Generated class for the DatabaseProvider provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
 @Injectable()
-export class ClientDatabaseProvider {
+export class DatabaseProvider {
 
   constructor(
     public afs: AngularFirestore) {
   }
 
-  createProfile(email: string, uid: string): Promise<any> {
-    return this.afs.doc(`/clientProfile/${uid}`).set({
+  createDriverProfile(email: string, uid: string): Promise<any> {
+    return this.afs.doc(`/driverProfile/${uid}`).set({
+      approved: false,
       email: email,
       uid: uid
     })
   }
 
-
-  submitJobRequest(data): Promise<DocumentReference> {
-    return this.afs.collection('/jobRequests').add(data)
-  }
-
-  lookupClientProfile(user): Promise<AngularFirestoreDocument<any>> {
+  lookupDriverProfile(user): Promise<AngularFirestoreDocument<any>> {
     return new Promise<AngularFirestoreDocument<any>>((resolve, reject) => {
       let docRef: AngularFirestoreDocument<any> = this.afs.doc<any>(
-        `/clientProfile/${user.uid}`);
+        `/driverProfile/${user.uid}`);
       if (docRef) {
         resolve(docRef);
       } else {
@@ -46,6 +42,13 @@ export class ClientDatabaseProvider {
       }
     });
   }
+
+
+  // DELETE
+  submitJobRequest(data): Promise<DocumentReference> {
+    return this.afs.collection('/jobRequests').add(data)
+  }
+
 
 
 }
