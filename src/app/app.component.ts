@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { TabsNavigationPage } from '../pages/tabs-navigation/tabs-navigation';
 import { WalkthroughPage } from '../pages/walkthrough/walkthrough';
 import { FirebaseLoginPage } from '../pages/firebase-integration/firebase-login/firebase-login';
+import {FirebaseAuthService} from "../pages/firebase-integration/firebase-auth.service";
 
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
@@ -41,7 +42,8 @@ export class MyApp {
     public statusBar: StatusBar,
     public translate: TranslateService,
     public toastCtrl: ToastController,
-    public afAuth: AngularFireAuth
+    public afAuth: AngularFireAuth,
+    public authService: FirebaseAuthService
   ) {
 
     // If the user is already logged in, will send to home page
@@ -91,13 +93,14 @@ export class MyApp {
             { title: data[1], icon: 'calendar', component: TabsNavigationPage },
             { title: data[2], icon: 'card', component: TabsNavigationPage },
             { title: data[3], icon: 'share', component: TabsNavigationPage },
-            { title: data[4], icon: 'git-pull-request', component: TabsNavigationPage },
-            { title: data[5], icon: 'help', component: TabsNavigationPage },
+            {title: data[4], icon: 'git-pull-request', component: TabsNavigationPage}
           ];
 
           this.pushPages = [
+            {title: data[5], icon: 'help', component: TabsNavigationPage},
             { title: data[6], icon: 'log-out', component: FirebaseLoginPage }
           ];
+
         });
       });
   }
@@ -110,9 +113,17 @@ export class MyApp {
   }
 
   pushPage(page) {
-    // close the menu when clicking a link from the menu
-    this.menu.close();
-    // rootNav is now deprecated (since beta 11) (https://forum.ionicframework.com/t/cant-access-rootnav-after-upgrade-to-beta-11/59889)
-    this.app.getRootNav().push(page.component);
+
+    if (page.title == 'Log out') {
+      this.authService.doLogout();
+      this.menu.close();
+      this.app.getRootNav().push(WalkthroughPage);
+    } else {
+      // close the menu when clicking a link from the menu
+      this.menu.close();
+      // rootNav is now deprecated (since beta 11) (https://forum.ionicframework.com/t/cant-access-rootnav-after-upgrade-to-beta-11/59889)
+      this.app.getRootNav().push(page.component);
+    }
+
   }
 }
