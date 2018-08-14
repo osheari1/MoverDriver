@@ -9,8 +9,11 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { environment } from '../environment/environment';
 import {Camera} from '@ionic-native/camera';
 // import {CameraMock} from '@ionic-native-mocks/camera';
+import {FCMMock} from '@ionic-native-mocks/fcm';
 
 //pages
+import {PendingJobsPage} from "../pages/pending-jobs/pending-jobs";
+import {JobDetailPage} from "../pages/job-detail/job-detail";
 import {HistoryPage} from "../pages/history/history";
 import {CurrentJobsPage} from "../pages/current-jobs/current-jobs";
 import {ApprovalPage} from "../pages/approval/approval";
@@ -113,6 +116,7 @@ import { ImagePicker } from '@ionic-native/image-picker';
 import {ImagePickerMock} from '@ionic-native-mocks/image-picker';
 import { Crop } from '@ionic-native/crop';
 import { EmailComposer } from '@ionic-native/email-composer';
+import {FCM} from '@ionic-native/fcm';
 
 //Angular Fire
 import { AngularFireModule } from 'angularfire2';
@@ -127,19 +131,12 @@ export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-// Create mock camera class to allow 'camera' to be used in browser
-// REMOVE BEFORE DEPLOY
-// class CameraMock extends Camera {
-//   getPicture(options) {
-//     return new Promise( (resolve, reject) => {
-//       resolve(`TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlzIHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRoZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4=`); });
-//   }
-// }
-
 @NgModule({
   declarations: [
     MyApp,
     ApprovalPage,
+    PendingJobsPage,
+    JobDetailPage,
     CurrentJobsPage,
     HistoryPage,
     // EquipmentOptionsPage,
@@ -232,6 +229,8 @@ export function createTranslateLoader(http: HttpClient) {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    PendingJobsPage,
+    JobDetailPage,
     ApprovalPage,
     CurrentJobsPage,
     HistoryPage,
@@ -315,6 +314,8 @@ export function createTranslateLoader(http: HttpClient) {
     TwitterConnect,
 		AdMobFree,
 		AppRate,
+    {provide: FCM, useClass: FCMMock},
+    // FCM,
 
     {provide: ImagePicker, useClass: ImagePickerMock},
     // {provide: Camera, useClass: CameraMock},

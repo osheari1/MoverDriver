@@ -38,7 +38,6 @@ export class FirebaseAuthService {
     });
   }
 
-
   doLogin(value): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.auth.signInWithEmailAndPassword(value.email, value.password)

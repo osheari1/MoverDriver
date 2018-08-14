@@ -1,13 +1,14 @@
-import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Platform} from 'ionic-angular';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
   AngularFirestoreCollection
 } from 'angularfire2/firestore';
-import * as firebase from 'firebase/app';
+
+import {FCM} from '@ionic-native/fcm';
+
 import 'firebase/storage';
+import * as firebase from 'firebase/app';
 import DocumentReference = firebase.firestore.DocumentReference;
 
 /*
@@ -16,29 +17,62 @@ import DocumentReference = firebase.firestore.DocumentReference;
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
+
+//TODO: Implement FCM
 @Injectable()
 export class DatabaseProvider {
+  private mockToken: string = 'MOCK TOKEN';
 
   constructor(
-    public afs: AngularFirestore) {
+    public afs: AngularFirestore,
+    public fcm: FCM
+  ) {
   }
 
-  createDriverProfile(email: string, uid: string): Promise<any> {
-    return this.afs.doc(`/driverProfile/${uid}`).set({
-      approved: false,
-      email: email,
-      uid: uid
-    })
+  updateDriverToken(id: string): Promise<any> {
+    //TODO: Remove mock tokens
+    return this.fcm.getToken().then(token => {
+      if (token == null) {
+        token = this.mockToken;
+      }
+      this.afs.doc(`/driverProfile/${id}`).update({
+        deviceToken: token
+      });
+    });
   }
 
-  lookupDriverProfile(user): Promise<AngularFirestoreDocument<any>> {
+
+  checkIfDriverExists(id: string): Promise<boolean> {
+    return this.afs.firestore.doc(`driverProfile/${id}`).get()
+      .then(docSnapshot => {
+        return docSnapshot.exists;
+      });
+  }
+
+  createDriverProfile(email: string, id: string): Promise<any> {
+    // First get device token
+    //TODO: Remove mock tokens
+    return this.fcm.getToken().then(token => {
+      if (token == null) {
+        token = this.mockToken;
+      }
+      this.afs.doc(`/driverProfile/${id}`).set({
+        approved: false,
+        email: email,
+        uid: id,
+        deviceToken: token
+      });
+    });
+  }
+
+  lookupDriverProfile(id): Promise<AngularFirestoreDocument<any>> {
     return new Promise<AngularFirestoreDocument<any>>((resolve, reject) => {
       let docRef: AngularFirestoreDocument<any> = this.afs.doc<any>(
-        `/driverProfile/${user.uid}`);
+        `/driverProfile/${id}`);
       if (docRef) {
         resolve(docRef);
       } else {
-        reject(docRef);
+        reject(`Could not get document.`);
       }
     });
   }

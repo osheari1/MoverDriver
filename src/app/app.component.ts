@@ -1,8 +1,16 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, MenuController, Nav, App, ToastController } from 'ionic-angular';
+import {
+  Platform,
+  MenuController,
+  // Nav,
+  NavController,
+  // App,
+  ToastController
+} from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Observable } from 'rxjs/Observable';
+import {FCM} from "@ionic-native/fcm";
 
 import { TabsNavigationPage } from '../pages/tabs-navigation/tabs-navigation';
 import { WalkthroughPage } from '../pages/walkthrough/walkthrough';
@@ -21,7 +29,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class MyApp {
 
-  @ViewChild(Nav) nav: Nav;
+  @ViewChild('navigator') navCtrl: NavController;
+  // @ViewChild(Nav) nav: Nav;
 
   // make WalkthroughPage the root (or first) page
   // rootPage: any = WalkthroughPage;
@@ -37,13 +46,14 @@ export class MyApp {
   constructor(
     platform: Platform,
     public menu: MenuController,
-    public app: App,
+    // public app: App,
     public splashScreen: SplashScreen,
     public statusBar: StatusBar,
     public translate: TranslateService,
     public toastCtrl: ToastController,
     public afAuth: AngularFireAuth,
-    public authService: FirebaseAuthService
+    public authService: FirebaseAuthService,
+    public fcm: FCM
   ) {
 
     // If the user is already logged in, will send to home page
@@ -63,6 +73,17 @@ export class MyApp {
 
 
     platform.ready().then(() => {
+      // FCM
+      fcm.onNotification().subscribe(data => {
+        if (data.wasTapped) {
+          // Notification was received on device tray and tapped by user
+          this.handleWasTappedNotification(data);
+        } else {
+          // Notification wasreceivedd in foreground
+          this.handleWasNotTappedNotification(data);
+        }
+      });
+
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.splashScreen.hide();
@@ -103,13 +124,27 @@ export class MyApp {
 
         });
       });
+
   }
+
+  handleWasTappedNotification(data) {
+    console.log('Notification was tapped.');
+    console.log(JSON.stringify(data));
+    this.navCtrl.setRoot(TabsNavigationPage, data);
+  }
+
+  handleWasNotTappedNotification(data) {
+    console.log('Notification was not tapped.');
+    console.log(JSON.stringify(data));
+    this.navCtrl.setRoot(TabsNavigationPage, data);
+  }
+
 
   openPage(page) {
     // close the menu when clicking a link from the menu
     this.menu.close();
     // navigate to the new page if it is not the current page
-    this.nav.setRoot(page.component);
+    this.navCtrl.setRoot(page.component);
   }
 
   pushPage(page) {
@@ -117,12 +152,15 @@ export class MyApp {
     if (page.title == 'Log out') {
       this.authService.doLogout();
       this.menu.close();
-      this.app.getRootNav().push(WalkthroughPage);
+      this.navCtrl.setRoot(WalkthroughPage);
+      // this.app.getRootNav().push(WalkthroughPage);
     } else {
+
       // close the menu when clicking a link from the menu
       this.menu.close();
       // rootNav is now deprecated (since beta 11) (https://forum.ionicframework.com/t/cant-access-rootnav-after-upgrade-to-beta-11/59889)
-      this.app.getRootNav().push(page.component);
+      this.navCtrl.push(page.component);
+      // this.app.getRootNav().push(page.component);
     }
 
   }

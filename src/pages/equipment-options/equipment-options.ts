@@ -139,7 +139,7 @@ export class EquipmentOptionsPage {
     // Add current user id to job request
     this.fAuthService.getCurrentUser().then(user => {
       // Compile user info
-      this.db.lookupDriverProfile(user).then(userRef => {
+      this.db.lookupDriverProfile(user.uid).then(userRef => {
         console.log(userRef.ref);
         this.jobRequest = this.updateJobRequestObject({
           clientRef: userRef.ref

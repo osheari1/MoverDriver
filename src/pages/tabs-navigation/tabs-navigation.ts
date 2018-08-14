@@ -7,6 +7,7 @@ import {ListingPage} from "../listing/listing";
 import {ApprovalPage} from "../approval/approval";
 import {CurrentJobsPage} from "../current-jobs/current-jobs";
 import {HistoryPage} from "../history/history";
+import {PendingJobsPage} from "../pending-jobs/pending-jobs";
 
 
 @Component({
@@ -19,7 +20,7 @@ export class TabsNavigationPage {
   tab3Root: any;
 
   constructor() {
-    this.tab1Root = HistoryPage;
+    this.tab1Root = PendingJobsPage;
     this.tab2Root = ProfilePage;
     this.tab3Root = CurrentJobsPage;
   }
