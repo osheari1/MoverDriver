@@ -314,8 +314,8 @@ export function createTranslateLoader(http: HttpClient) {
     TwitterConnect,
 		AdMobFree,
 		AppRate,
-    {provide: FCM, useClass: FCMMock},
-    // FCM,
+    // {provide: FCM, useClass: FCMMock},
+    FCM,
 
     {provide: ImagePicker, useClass: ImagePickerMock},
     // {provide: Camera, useClass: CameraMock},

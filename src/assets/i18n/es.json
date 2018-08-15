@@ -143,5 +143,6 @@
   "NEED_HELPER": "Will the mover need an Helper?",
   "CAN_USE_ELEVATOR": "Can an elevator be used?",
   "CURRENT_JOBS": "Current Jobs",
-  "PENDING_JOBS": "Pending Jobs"
+  "PENDING_JOBS": "Pending Jobs",
+  "JOB_DETAILS": "Job Details"
 }

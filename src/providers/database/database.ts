@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Provider} from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -10,6 +10,8 @@ import {FCM} from '@ionic-native/fcm';
 import 'firebase/storage';
 import * as firebase from 'firebase/app';
 import DocumentReference = firebase.firestore.DocumentReference;
+import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
+import {Observable} from "rxjs";
 
 /*
   Generated class for the DatabaseProvider provider.
@@ -40,6 +42,10 @@ export class DatabaseProvider {
     });
   }
 
+
+  queryJobRequestDetails(id: string): Observable<any> {
+    return this.afs.doc(`jobRequests/${id}`).valueChanges();
+  }
 
   checkIfDriverExists(id: string): Promise<boolean> {
     return this.afs.firestore.doc(`driverProfile/${id}`).get()
@@ -75,6 +81,5 @@ export class DatabaseProvider {
       }
     });
   }
-
 
 }

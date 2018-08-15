@@ -150,28 +150,28 @@ export class EquipmentOptionsPage {
         let message = this.buildJobRequestMessage();
         console.log(message);
         // Add to requestDB
-        this.db.submitJobRequest(message).then(docRef => {
-          this.loading.dismiss().then(() => {
-            const alert: Alert = this.alertCtrl.create({
-              message: `Submitted job request ${docRef.id}`,
-              buttons: [
-                {
-                  text: 'OK',
-                  role: 'cancel',
-                  handler: () => {
-                    this.navCtrl.setRoot(TabsNavigationPage);
-                  }
-                }
-              ]
-            });
-            alert.present();
-          });
-        }, err => {
-          console.log('Could not submit job request');
-          console.log(err);
-        });
-        this.loading = this.loadingCtrl.create();
-        this.loading.present();
+        // this.db.submitJobRequest(message).then(docRef => {
+        //   this.loading.dismiss().then(() => {
+        //     const alert: Alert = this.alertCtrl.create({
+        //       message: `Submitted job request ${docRef.id}`,
+        //       buttons: [
+        //         {
+        //           text: 'OK',
+        //           role: 'cancel',
+        //           handler: () => {
+        //             this.navCtrl.setRoot(TabsNavigationPage);
+        //           }
+        //         }
+        //       ]
+        //     });
+        //     alert.present();
+        //   });
+        // }, err => {
+        //   console.log('Could not submit job request');
+        //   console.log(err);
+        // });
+        // this.loading = this.loadingCtrl.create();
+        // this.loading.present();
       }, err => {
         console.log(this.jobRequest);
         console.log(err);

@@ -2,9 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import {
   Platform,
   MenuController,
-  // Nav,
+  Nav,
   NavController,
-  // App,
+  App,
   ToastController
 } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,6 +21,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 // Firebase Auth
 import { AngularFireAuth } from 'angularfire2/auth';
+import {JobDetailPage} from "../pages/job-detail/job-detail";
 
 
 @Component({
@@ -33,9 +34,7 @@ export class MyApp {
   // @ViewChild(Nav) nav: Nav;
 
   // make WalkthroughPage the root (or first) page
-  // rootPage: any = WalkthroughPage;
   rootPage: any;
-  // rootPage: any = TabsNavigationPage;
 
   // textDir: string = "rtl";
   textDir: string = "ltr";
@@ -46,7 +45,7 @@ export class MyApp {
   constructor(
     platform: Platform,
     public menu: MenuController,
-    // public app: App,
+    public app: App,
     public splashScreen: SplashScreen,
     public statusBar: StatusBar,
     public translate: TranslateService,
@@ -74,6 +73,7 @@ export class MyApp {
 
     platform.ready().then(() => {
       // FCM
+
       fcm.onNotification().subscribe(data => {
         if (data.wasTapped) {
           // Notification was received on device tray and tapped by user
@@ -130,13 +130,13 @@ export class MyApp {
   handleWasTappedNotification(data) {
     console.log('Notification was tapped.');
     console.log(JSON.stringify(data));
-    this.navCtrl.setRoot(TabsNavigationPage, data);
+    this.navCtrl.push(JobDetailPage, data);
   }
 
   handleWasNotTappedNotification(data) {
     console.log('Notification was not tapped.');
     console.log(JSON.stringify(data));
-    this.navCtrl.setRoot(TabsNavigationPage, data);
+    this.navCtrl.push(JobDetailPage, data);
   }
 
 
@@ -145,6 +145,7 @@ export class MyApp {
     this.menu.close();
     // navigate to the new page if it is not the current page
     this.navCtrl.setRoot(page.component);
+    // this.nav.setRoot(page.component);
   }
 
   pushPage(page) {
@@ -155,7 +156,6 @@ export class MyApp {
       this.navCtrl.setRoot(WalkthroughPage);
       // this.app.getRootNav().push(WalkthroughPage);
     } else {
-
       // close the menu when clicking a link from the menu
       this.menu.close();
       // rootNav is now deprecated (since beta 11) (https://forum.ionicframework.com/t/cant-access-rootnav-after-upgrade-to-beta-11/59889)
