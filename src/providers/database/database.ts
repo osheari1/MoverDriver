@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
-  AngularFirestoreCollection
+  // AngularFirestoreCollection
 } from 'angularfire2/firestore';
 
 import {FCM} from '@ionic-native/fcm';
@@ -18,7 +18,6 @@ import DocumentReference = firebase.firestore.DocumentReference;
   and Angular DI.
 */
 
-//TODO: Implement FCM
 @Injectable()
 export class DatabaseProvider {
   private mockToken: string = 'MOCK TOKEN';
@@ -76,13 +75,6 @@ export class DatabaseProvider {
       }
     });
   }
-
-
-  // DELETE
-  submitJobRequest(data): Promise<DocumentReference> {
-    return this.afs.collection('/jobRequests').add(data)
-  }
-
 
 
 }
