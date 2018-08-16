@@ -10,6 +10,7 @@ import { environment } from '../environment/environment';
 import {Camera} from '@ionic-native/camera';
 // import {CameraMock} from '@ionic-native-mocks/camera';
 import {FCMMock} from '@ionic-native-mocks/fcm';
+import {RoundProgressModule} from "angular-svg-round-progressbar";
 
 //pages
 import {PendingJobsPage} from "../pages/pending-jobs/pending-jobs";
@@ -224,7 +225,8 @@ export function createTranslateLoader(http: HttpClient) {
     AngularFirestoreModule,
     AngularFireAuthModule,
 		VideoPlayerModule,
-		ValidatorsModule
+    ValidatorsModule,
+    RoundProgressModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

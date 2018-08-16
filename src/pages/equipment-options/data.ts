@@ -1,5 +1,3 @@
-// TODO: Implement feePerMinuite for prod
-
 export const data = {
   truck: {
     segment: 'truck',

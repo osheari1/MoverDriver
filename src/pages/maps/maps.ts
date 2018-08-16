@@ -12,8 +12,6 @@ import { GoogleMapsService } from "./maps.service";
 import { MapsModel, MapPlace } from './maps.model';
 import {CalcUtilsProvider} from "../../providers/calc-utils/calc-utils";
 
-// TODO: ADD directions for multi stop.
-
 @Component({
   selector: 'maps-page',
   templateUrl: 'maps.html'

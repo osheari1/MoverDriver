@@ -43,8 +43,8 @@ export class DatabaseProvider {
   }
 
 
-  queryJobRequestDetails(id: string): Observable<any> {
-    return this.afs.doc(`jobRequests/${id}`).valueChanges();
+  queryJobRequestDetails(id: string): AngularFirestoreDocument<any> {
+    return this.afs.doc(`jobRequests/${id}`)
   }
 
   checkIfDriverExists(id: string): Promise<boolean> {

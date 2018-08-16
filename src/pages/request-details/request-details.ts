@@ -57,7 +57,6 @@ export class RequestDetailsPage {
 
   }
 
-  // TODO: Add option to take picture
   openImagePicker(): void {
     //setup camera options
     this.platform.ready().then(() => {
