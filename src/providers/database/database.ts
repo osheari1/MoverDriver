@@ -42,6 +42,23 @@ export class DatabaseProvider {
     });
   }
 
+  // TODO: Accept job request
+  // TODO: Reject job request
+  // TODO: Add handler for simple timeouts
+  // TODO: Optimize update of jobAccepted update
+  acceptJobRequest(requestId: string, driverId: string, requestData: any): Promise<any> {
+    // Create new entry in acceptedJobs database
+    // Updates document in case a helper has already accepted
+    let acceptedDocRef = this.afs.doc(`jobAccept/${requestId}`);
+    // let requestDocRef = this.afs.doc(`jobRequests/${requestId}`);
+
+    return acceptedDocRef.set(requestData, {merge: true}).then(() => {
+      return acceptedDocRef.update({driverId: driverId}).then(
+        () => console.log(`Added jobRequest ${requestId} to jobAccept database.`),
+        err => console.log(err)
+      );
+    });
+  }
 
   queryJobRequestDetails(id: string): AngularFirestoreDocument<any> {
     return this.afs.doc(`jobRequests/${id}`)
@@ -81,5 +98,6 @@ export class DatabaseProvider {
       }
     });
   }
+
 
 }
