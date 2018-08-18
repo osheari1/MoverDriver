@@ -12,6 +12,7 @@ import * as firebase from 'firebase/app';
 import DocumentReference = firebase.firestore.DocumentReference;
 import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 import {Observable} from "rxjs";
+import DocumentData = firebase.firestore.DocumentData;
 
 /*
   Generated class for the DatabaseProvider provider.
@@ -42,21 +43,92 @@ export class DatabaseProvider {
     });
   }
 
-  // TODO: Accept job request
-  // TODO: Reject job request
-  // TODO: Add handler for simple timeouts
   // TODO: Optimize update of jobAccepted update
-  acceptJobRequest(requestId: string, driverId: string, requestData: any): Promise<any> {
-    // Create new entry in acceptedJobs database
+  acceptJobRequest(
+    requestId: string,
+    driverId: string,
+    requestData: any,
+    driverProfile: any
+  ): Promise<void> {
     // Updates document in case a helper has already accepted
     let acceptedDocRef = this.afs.doc(`jobAccept/${requestId}`);
-    // let requestDocRef = this.afs.doc(`jobRequests/${requestId}`);
+    let requestDocRef = this.afs.doc(`jobRequests/${requestId}`);
+    let driverProfileRef = this.afs.doc(`driverProfile/${driverId}`);
 
+    // Move data to jobAccept data base
     return acceptedDocRef.set(requestData, {merge: true}).then(() => {
-      return acceptedDocRef.update({driverId: driverId}).then(
-        () => console.log(`Added jobRequest ${requestId} to jobAccept database.`),
-        err => console.log(err)
-      );
+      // Add driverId
+      return acceptedDocRef.update({driverId: driverId}).then(() => {
+        console.log(`Added jobRequest ${requestId} to jobAccept database.`);
+        // Remove old entry from DB
+        return requestDocRef.delete().then(() => {
+          console.log(`Deleted ${requestId} from jobRequest database`);
+          // Add accepted job ID to driverProfile
+          // Get current driver profile
+          // Update accepted jobs list
+          let acceptedJobs;
+          if (driverProfile.acceptedJobs) {
+            acceptedJobs = driverProfile.acceptedJobs;
+            acceptedJobs.push(requestId);
+          } else {
+            acceptedJobs = [requestId];
+          }
+          return driverProfileRef.update({acceptedJobs: acceptedJobs})
+            .then(() => {
+              console.log(`Updated acceptedJobs list in driverProfile ${driverId}`);
+            }, err => {
+              console.log('Error occurred in driverProfile set', err);
+            });
+
+        }, err => {
+          console.log('Error occurred in requestDoc delete.', err);
+        });
+      }, err => {
+        console.log('Error occurred in acceptDoc driverId update.', err);
+      });
+    }, err => {
+      console.log('Error occurred in acceptDoc set.', err);
+    });
+  }
+
+  timeoutJobRequest(requestId: string, driverId: string, requestData: any): Promise<void> {
+    /*If driver timed out, reject job, but keep track of the fact they timed out
+    * rather than actively rejecting it.
+    * */
+    let requestDocRef = this.afs.doc(`jobRequests/${requestId}`);
+    let timeoutDrivers;
+
+    // Add current drivers to rejected drivers
+    if (requestData.timeoutDrivers) {
+      timeoutDrivers = requestData.timeoutDrivers;
+      timeoutDrivers.push(driverId);
+    }
+    timeoutDrivers = [driverId];
+    return requestDocRef.update({timeoutDrivers: timeoutDrivers}).then(() => {
+      console.log(
+        `Job request ${requestId} 
+          was timed-out by ${driverId}.`);
+    }, err => {
+      console.log(err);
+    });
+  }
+
+  rejectJobRequest(requestId: string, driverId: string, requestData: any): Promise<void> {
+    let requestDocRef = this.afs.doc(`jobRequests/${requestId}`);
+    let rejectedDrivers;
+
+    // Add current drivers to rejected drivers
+    if (requestData.rejectedDrivers) {
+      rejectedDrivers = requestData.rejectedDrivers;
+      rejectedDrivers.push(driverId);
+    }
+    rejectedDrivers = [driverId];
+    return requestDocRef.update({rejectedDrivers: rejectedDrivers}).then(() => {
+      console.log(
+        `Job request ${requestId} 
+          was rejected by ${driverId}.`);
+    }, err => {
+      console.log(err);
     });
   }
 
@@ -87,16 +159,8 @@ export class DatabaseProvider {
     });
   }
 
-  lookupDriverProfile(id): Promise<AngularFirestoreDocument<any>> {
-    return new Promise<AngularFirestoreDocument<any>>((resolve, reject) => {
-      let docRef: AngularFirestoreDocument<any> = this.afs.doc<any>(
-        `/driverProfile/${id}`);
-      if (docRef) {
-        resolve(docRef);
-      } else {
-        reject(`Could not get document.`);
-      }
-    });
+  lookupDriverProfile(id): AngularFirestoreDocument<any> {
+    return this.afs.doc<any>(`/driverProfile/${id}`);
   }
 
 
