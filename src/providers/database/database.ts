@@ -1,4 +1,4 @@
-import {Injectable, Provider} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -9,10 +9,6 @@ import {FCM} from '@ionic-native/fcm';
 
 import 'firebase/storage';
 import * as firebase from 'firebase/app';
-import DocumentReference = firebase.firestore.DocumentReference;
-import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
-import {Observable} from "rxjs";
-import DocumentData = firebase.firestore.DocumentData;
 
 /*
   Generated class for the DatabaseProvider provider.
@@ -118,28 +114,6 @@ export class DatabaseProvider {
       });
   }
 
-  // timeoutJobRequest(requestId: string, driverId: string, requestData: any): Promise<void> {
-  //   /*If driver timed out, reject job, but keep track of the fact they timed out
-  //   * rather than actively rejecting it.
-  //   * */
-  //   let requestDocRef = this.afs.doc(`jobRequests/${requestId}`);
-  //
-  //   let timeoutDrivers;
-  //
-  //   // Add current drivers to rejected drivers
-  //   if (requestData.timeoutDrivers) {
-  //     timeoutDrivers = requestData.timeoutDrivers;
-  //     timeoutDrivers.push(driverId);
-  //   }
-  //   timeoutDrivers = [driverId];
-  //   return requestDocRef.update({timeoutDrivers: timeoutDrivers}).then(() => {
-  //     console.log(
-  //       `Job request ${requestId}
-  //         was timed-out by ${driverId}.`);
-  //   }, err => {
-  //     console.log(err);
-  //   });
-  // }
   rejectJobRequest(requestId: string, driverId: string): Promise<void> {
     /*If driver timed out, reject job, but keep track of the fact they timed out
     * rather than actively rejecting it.
@@ -147,9 +121,6 @@ export class DatabaseProvider {
     let acceptRejectTimeoutRef = this.afs
       .collection(`acceptRejectTimeout`)
       .doc(`${requestId}`);
-    // acceptRejectTimeoutRef.set({test: 'test'}).then(() => {
-    //   console.log('added test record');
-    // }, err => {console.log(err)});
 
     // Add current drivers to rejected drivers
     return acceptRejectTimeoutRef
@@ -163,25 +134,6 @@ export class DatabaseProvider {
         console.log(JSON.stringify(err));
       });
   }
-
-  // rejectJobRequest(requestId: string, driverId: string, requestData: any): Promise<void> {
-  //   let requestDocRef = this.afs.doc(`jobRequests/${requestId}`);
-  //   let rejectedDrivers;
-  //
-  //   // Add current drivers to rejected drivers
-  //   if (requestData.rejectedDrivers) {
-  //     rejectedDrivers = requestData.rejectedDrivers;
-  //     rejectedDrivers.push(driverId);
-  //   }
-  //   rejectedDrivers = [driverId];
-  //   return requestDocRef.update({rejectedDrivers: rejectedDrivers}).then(() => {
-  //     console.log(
-  //       `Job request ${requestId}
-  //         was rejected by ${driverId}.`);
-  //   }, err => {
-  //     console.log(err);
-  //   });
-  // }
 
   queryJobRequestDetails(id: string): AngularFirestoreDocument<any> {
     return this.afs.doc(`jobRequests/${id}`)
