@@ -119,7 +119,7 @@ export class MyApp {
 
           this.pushPages = [
             {title: data[5], icon: 'help', component: TabsNavigationPage},
-            { title: data[6], icon: 'log-out', component: FirebaseLoginPage }
+            {title: data[6], icon: 'log-out', component: null}
           ];
 
         });

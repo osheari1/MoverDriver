@@ -61,36 +61,31 @@ export class DatabaseProvider {
           // Add driverId
           return acceptedDocRef.update({driverId: driverId}).then(() => {
             console.log(`Added jobRequest ${requestId} to jobAccept database.`);
-            // Remove old entry from DB
-            return requestDocRef.delete().then(() => {
-              console.log(`Deleted ${requestId} from jobRequest database`);
-              // Add accepted job ID to driverProfile
-              // Get current driver profile
-              // Update accepted jobs list
-              let acceptedJobs;
-              if (driverProfile.acceptedJobs) {
-                acceptedJobs = driverProfile.acceptedJobs;
-                acceptedJobs.push(requestId);
-              } else {
-                acceptedJobs = [requestId];
-              }
-              return driverProfileRef.update({acceptedJobs: acceptedJobs})
-                .then(() => {
-                  console.log(`Updated acceptedJobs list in driverProfile ${driverId}`);
-                }, err => {
-                  console.log('Error occurred in driverProfile set', err);
-                });
-
-            }, err => {
-              console.log('Error occurred in requestDoc delete.', err);
-            });
+            // Add accepted job ID to driverProfile
+            // Get current driver profile
+            // Update accepted jobs list
+            let acceptedJobs;
+            if (driverProfile.acceptedJobs) {
+              acceptedJobs = driverProfile.acceptedJobs;
+              acceptedJobs.push(requestId);
+            } else {
+              acceptedJobs = [requestId];
+            }
+            return driverProfileRef.update({acceptedJobs: acceptedJobs})
+              .then(() => {
+                console.log(`Updated acceptedJobs list in driverProfile ${driverId}`);
+              }, err => {
+                console.log('Error occurred in driverProfile set', JSON.stringify(err));
+              });
           }, err => {
-            console.log('Error occurred in acceptDoc driverId update.', err);
+            console.log('Error occurred in acceptDoc driverId update.', JSON.stringify(err));
           });
         }, err => {
-          console.log('Error occurred in acceptDoc set.', err);
+          console.log('Error occurred in acceptDoc set.', JSON.stringify(err));
         });
-      }, err => console.log(err))
+      }, err => {
+        console.log('Error occurred in acceptRejectTimeout set', JSON.stringify(err))
+      });
   }
 
   timeoutJobRequest(requestId: string, driverId: string): Promise<void> {
@@ -156,7 +151,7 @@ export class DatabaseProvider {
       this.afs.doc(`/driverProfile/${id}`).set({
         approved: false,
         email: email,
-        uid: id,
+        id: id,
         deviceToken: token
       });
     });
