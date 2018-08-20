@@ -139,11 +139,11 @@ export class EquipmentOptionsPage {
     // Add current user id to job request
     this.fAuthService.getCurrentUser().then(user => {
       // Compile user info
-      this.db.lookupDriverProfile(user.uid).then(userRef => {
-        console.log(userRef.ref);
-        this.jobRequest = this.updateJobRequestObject({
-          clientRef: userRef.ref
-        });
+      // this.db.lookupDriverProfile(user.uid).then(userRef => {
+      //   console.log(userRef.ref);
+      //   this.jobRequest = this.updateJobRequestObject({
+      //     clientRef: userRef.ref
+      //   });
 
         // Build job request data blob
         console.log(this.jobRequest);
@@ -172,10 +172,10 @@ export class EquipmentOptionsPage {
         // });
         // this.loading = this.loadingCtrl.create();
         // this.loading.present();
-      }, err => {
-        console.log(this.jobRequest);
-        console.log(err);
-      });
+      // }, err => {
+      //   console.log(this.jobRequest);
+      //   console.log(err);
+      // });
     }, err => {
       console.log(this.jobRequest);
       console.log(err);

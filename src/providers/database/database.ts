@@ -54,83 +54,134 @@ export class DatabaseProvider {
     let acceptedDocRef = this.afs.doc(`jobAccept/${requestId}`);
     let requestDocRef = this.afs.doc(`jobRequests/${requestId}`);
     let driverProfileRef = this.afs.doc(`driverProfile/${driverId}`);
+    let acceptRejectTimeoutRef = this.afs
+      .collection(`acceptRejectTimeout`)
+      .doc(`${requestId}`);
 
-    // Move data to jobAccept data base
-    return acceptedDocRef.set(requestData, {merge: true}).then(() => {
-      // Add driverId
-      return acceptedDocRef.update({driverId: driverId}).then(() => {
-        console.log(`Added jobRequest ${requestId} to jobAccept database.`);
-        // Remove old entry from DB
-        return requestDocRef.delete().then(() => {
-          console.log(`Deleted ${requestId} from jobRequest database`);
-          // Add accepted job ID to driverProfile
-          // Get current driver profile
-          // Update accepted jobs list
-          let acceptedJobs;
-          if (driverProfile.acceptedJobs) {
-            acceptedJobs = driverProfile.acceptedJobs;
-            acceptedJobs.push(requestId);
-          } else {
-            acceptedJobs = [requestId];
-          }
-          return driverProfileRef.update({acceptedJobs: acceptedJobs})
-            .then(() => {
-              console.log(`Updated acceptedJobs list in driverProfile ${driverId}`);
+    return acceptRejectTimeoutRef.collection('drivers').doc(`${driverId}`)
+      .set({timeout: false, reject: false, accept: true}).then(() => {
+        // Move data to jobAccept data base
+        return acceptedDocRef.set(requestData, {merge: true}).then(() => {
+          // Add driverId
+          return acceptedDocRef.update({driverId: driverId}).then(() => {
+            console.log(`Added jobRequest ${requestId} to jobAccept database.`);
+            // Remove old entry from DB
+            return requestDocRef.delete().then(() => {
+              console.log(`Deleted ${requestId} from jobRequest database`);
+              // Add accepted job ID to driverProfile
+              // Get current driver profile
+              // Update accepted jobs list
+              let acceptedJobs;
+              if (driverProfile.acceptedJobs) {
+                acceptedJobs = driverProfile.acceptedJobs;
+                acceptedJobs.push(requestId);
+              } else {
+                acceptedJobs = [requestId];
+              }
+              return driverProfileRef.update({acceptedJobs: acceptedJobs})
+                .then(() => {
+                  console.log(`Updated acceptedJobs list in driverProfile ${driverId}`);
+                }, err => {
+                  console.log('Error occurred in driverProfile set', err);
+                });
+
             }, err => {
-              console.log('Error occurred in driverProfile set', err);
+              console.log('Error occurred in requestDoc delete.', err);
             });
-
+          }, err => {
+            console.log('Error occurred in acceptDoc driverId update.', err);
+          });
         }, err => {
-          console.log('Error occurred in requestDoc delete.', err);
+          console.log('Error occurred in acceptDoc set.', err);
         });
-      }, err => {
-        console.log('Error occurred in acceptDoc driverId update.', err);
-      });
-    }, err => {
-      console.log('Error occurred in acceptDoc set.', err);
-    });
+      }, err => console.log(err))
   }
 
-  timeoutJobRequest(requestId: string, driverId: string, requestData: any): Promise<void> {
+  timeoutJobRequest(requestId: string, driverId: string): Promise<void> {
     /*If driver timed out, reject job, but keep track of the fact they timed out
     * rather than actively rejecting it.
     * */
-    let requestDocRef = this.afs.doc(`jobRequests/${requestId}`);
-    let timeoutDrivers;
+    let acceptRejectTimeoutRef = this.afs
+      .collection(`acceptRejectTimeout`)
+      .doc(`${requestId}`);
 
     // Add current drivers to rejected drivers
-    if (requestData.timeoutDrivers) {
-      timeoutDrivers = requestData.timeoutDrivers;
-      timeoutDrivers.push(driverId);
-    }
-    timeoutDrivers = [driverId];
-    return requestDocRef.update({timeoutDrivers: timeoutDrivers}).then(() => {
-      console.log(
-        `Job request ${requestId} 
-          was timed-out by ${driverId}.`);
-    }, err => {
-      console.log(err);
-    });
+    return acceptRejectTimeoutRef
+      .collection(`drivers`)
+      .doc(`${driverId}`)
+      .set({timeout: true, reject: false, accept: false}).then(() => {
+        console.log(
+          `Job request ${requestId} 
+          was timed out by ${driverId}.`);
+      }, err => {
+        console.log(JSON.stringify(err));
+      });
   }
 
-  rejectJobRequest(requestId: string, driverId: string, requestData: any): Promise<void> {
-    let requestDocRef = this.afs.doc(`jobRequests/${requestId}`);
-    let rejectedDrivers;
+  // timeoutJobRequest(requestId: string, driverId: string, requestData: any): Promise<void> {
+  //   /*If driver timed out, reject job, but keep track of the fact they timed out
+  //   * rather than actively rejecting it.
+  //   * */
+  //   let requestDocRef = this.afs.doc(`jobRequests/${requestId}`);
+  //
+  //   let timeoutDrivers;
+  //
+  //   // Add current drivers to rejected drivers
+  //   if (requestData.timeoutDrivers) {
+  //     timeoutDrivers = requestData.timeoutDrivers;
+  //     timeoutDrivers.push(driverId);
+  //   }
+  //   timeoutDrivers = [driverId];
+  //   return requestDocRef.update({timeoutDrivers: timeoutDrivers}).then(() => {
+  //     console.log(
+  //       `Job request ${requestId}
+  //         was timed-out by ${driverId}.`);
+  //   }, err => {
+  //     console.log(err);
+  //   });
+  // }
+  rejectJobRequest(requestId: string, driverId: string): Promise<void> {
+    /*If driver timed out, reject job, but keep track of the fact they timed out
+    * rather than actively rejecting it.
+    * */
+    let acceptRejectTimeoutRef = this.afs
+      .collection(`acceptRejectTimeout`)
+      .doc(`${requestId}`);
+    // acceptRejectTimeoutRef.set({test: 'test'}).then(() => {
+    //   console.log('added test record');
+    // }, err => {console.log(err)});
 
     // Add current drivers to rejected drivers
-    if (requestData.rejectedDrivers) {
-      rejectedDrivers = requestData.rejectedDrivers;
-      rejectedDrivers.push(driverId);
-    }
-    rejectedDrivers = [driverId];
-    return requestDocRef.update({rejectedDrivers: rejectedDrivers}).then(() => {
-      console.log(
-        `Job request ${requestId} 
+    return acceptRejectTimeoutRef
+      .collection(`drivers`)
+      .doc(`${driverId}`)
+      .set({timeout: false, reject: true, accept: false}).then(() => {
+        console.log(
+          `Job request ${requestId} 
           was rejected by ${driverId}.`);
-    }, err => {
-      console.log(err);
-    });
+      }, err => {
+        console.log(JSON.stringify(err));
+      });
   }
+
+  // rejectJobRequest(requestId: string, driverId: string, requestData: any): Promise<void> {
+  //   let requestDocRef = this.afs.doc(`jobRequests/${requestId}`);
+  //   let rejectedDrivers;
+  //
+  //   // Add current drivers to rejected drivers
+  //   if (requestData.rejectedDrivers) {
+  //     rejectedDrivers = requestData.rejectedDrivers;
+  //     rejectedDrivers.push(driverId);
+  //   }
+  //   rejectedDrivers = [driverId];
+  //   return requestDocRef.update({rejectedDrivers: rejectedDrivers}).then(() => {
+  //     console.log(
+  //       `Job request ${requestId}
+  //         was rejected by ${driverId}.`);
+  //   }, err => {
+  //     console.log(err);
+  //   });
+  // }
 
   queryJobRequestDetails(id: string): AngularFirestoreDocument<any> {
     return this.afs.doc(`jobRequests/${id}`)
