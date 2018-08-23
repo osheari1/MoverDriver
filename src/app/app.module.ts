@@ -202,7 +202,7 @@ export function createTranslateLoader(http: HttpClient) {
     ColorRadio,
     CounterInput,
     Rating,
-    GoogleMap
+    GoogleMap,
   ],
   imports: [
     BrowserModule,
@@ -226,7 +226,7 @@ export function createTranslateLoader(http: HttpClient) {
     AngularFireAuthModule,
 		VideoPlayerModule,
     ValidatorsModule,
-    RoundProgressModule
+    RoundProgressModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -322,7 +322,6 @@ export function createTranslateLoader(http: HttpClient) {
     {provide: ImagePicker, useClass: ImagePickerMock},
     // {provide: Camera, useClass: CameraMock},
     Camera,
-
 		Crop,
 		EmailComposer,
     CalcUtilsProvider,

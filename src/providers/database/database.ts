@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {
-  AngularFirestore,
+  AngularFirestore, AngularFirestoreCollection,
   AngularFirestoreDocument,
   // AngularFirestoreCollection
 } from 'angularfire2/firestore';
@@ -48,7 +48,6 @@ export class DatabaseProvider {
   ): Promise<void> {
     // Updates document in case a helper has already accepted
     let acceptedDocRef = this.afs.doc(`jobAccept/${requestId}`);
-    let requestDocRef = this.afs.doc(`jobRequests/${requestId}`);
     let driverProfileRef = this.afs.doc(`driverProfile/${driverId}`);
     let acceptRejectTimeoutRef = this.afs
       .collection(`acceptRejectTimeout`)
@@ -109,6 +108,19 @@ export class DatabaseProvider {
       });
   }
 
+  removePendingDriver(requestId: string, driverId: string): Promise<void> {
+    let pendingDriverRef = this.afs
+      .collection('jobRequests')
+      .doc(`${requestId}`);
+    return pendingDriverRef.set({pendingDriver: null}, {merge: true}).then(() => {
+      console.log(`Removed driver ${driverId}s requestId ${requestId}s pendingDriver field`);
+    }, err => {
+      console.log(JSON.stringify(err));
+    });
+
+  }
+
+
   rejectJobRequest(requestId: string, driverId: string): Promise<void> {
     /*If driver timed out, reject job, but keep track of the fact they timed out
     * rather than actively rejecting it.
@@ -118,16 +130,19 @@ export class DatabaseProvider {
       .doc(`${requestId}`);
 
     // Add current drivers to rejected drivers
-    return acceptRejectTimeoutRef
-      .collection(`drivers`)
-      .doc(`${driverId}`)
+    return acceptRejectTimeoutRef.collection(`drivers`).doc(`${driverId}`)
       .set({timeout: false, reject: true, accept: false}).then(() => {
         console.log(
           `Job request ${requestId} 
           was rejected by ${driverId}.`);
-      }, err => {
-        console.log(JSON.stringify(err));
       });
+  }
+
+  queryJobRequests(queryFnc = null): AngularFirestoreCollection<any> {
+    if (queryFnc != null) {
+      return this.afs.collection('jobRequests', queryFnc);
+    }
+    return this.afs.collection('jobRequests');
   }
 
   queryJobRequestDetails(id: string): AngularFirestoreDocument<any> {
