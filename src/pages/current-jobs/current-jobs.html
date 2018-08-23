@@ -14,6 +14,20 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="content">
+  <ion-item-group>
 
+    <ion-item-divider class="divider">{{ 'TODAY' | translate }}</ion-item-divider>
+    <button ion-item class="item"
+            *ngFor="let request of jobAccept | async"
+            (click)="goToJobRequestDetail(request.id)">
+
+      <h2 class="item-title">{{request.id}}</h2>
+      <p class="item-description">{{request.description}}</p>
+      <p class="item-description">{{request.totalPrice | currency:'USD':'symbol':'1.0-2'}}</p>
+      <ion-note class="item-time" item-right>{{request.date}} {{request.time}}</ion-note>
+    </button>
+
+  </ion-item-group>
 </ion-content>
+

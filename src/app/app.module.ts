@@ -9,18 +9,17 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { environment } from '../environment/environment';
 import {Camera} from '@ionic-native/camera';
 // import {CameraMock} from '@ionic-native-mocks/camera';
-import {FCMMock} from '@ionic-native-mocks/fcm';
+// import {FCMMock} from '@ionic-native-mocks/fcm';
 import {RoundProgressModule} from "angular-svg-round-progressbar";
 
 //pages
+import {JobDetailsSkeletonPage} from "../pages/job-details-skeleton/job-details-skeleton";
 import {PendingJobsPage} from "../pages/pending-jobs/pending-jobs";
 import {JobDetailPage} from "../pages/job-detail/job-detail";
 import {HistoryPage} from "../pages/history/history";
 import {CurrentJobsPage} from "../pages/current-jobs/current-jobs";
 import {ApprovalPage} from "../pages/approval/approval";
 import {CalcUtilsProvider} from "../providers/calc-utils/calc-utils";
-// import {EquipmentOptionsPage} from "../pages/equipment-options/equipment-options";
-// import { RequestDetailsPage } from '../pages/request-details/request-details';
 import { ListingPage } from '../pages/listing/listing';
 import { FeedPage } from '../pages/feed/feed';
 import { FollowersPage } from '../pages/followers/followers';
@@ -137,6 +136,7 @@ export function createTranslateLoader(http: HttpClient) {
     MyApp,
     ApprovalPage,
     PendingJobsPage,
+    JobDetailsSkeletonPage,
     JobDetailPage,
     CurrentJobsPage,
     HistoryPage,
@@ -232,6 +232,7 @@ export function createTranslateLoader(http: HttpClient) {
   entryComponents: [
     MyApp,
     PendingJobsPage,
+    JobDetailsSkeletonPage,
     JobDetailPage,
     ApprovalPage,
     CurrentJobsPage,

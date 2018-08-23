@@ -145,8 +145,20 @@ export class DatabaseProvider {
     return this.afs.collection('jobRequests');
   }
 
+  queryJobAccept(queryFnc = null): AngularFirestoreCollection<any> {
+    if (queryFnc != null) {
+      return this.afs.collection('jobAccept', queryFnc);
+    }
+    return this.afs.collection('jobAccept');
+  }
+
+
   queryJobRequestDetails(id: string): AngularFirestoreDocument<any> {
     return this.afs.doc(`jobRequests/${id}`)
+  }
+
+  queryJobAcceptDetails(id: string): AngularFirestoreDocument<any> {
+    return this.afs.doc(`jobAccept/${id}`)
   }
 
   checkIfDriverExists(id: string): Promise<boolean> {
