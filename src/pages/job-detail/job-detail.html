@@ -1,0 +1,235 @@
+<!--
+  Generated template for the JobDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!--TODO: Move job accept into its own component or move job detail into own component-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title> {{ 'JOB_DETAILS' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="forms-content">
+  <div *ngIf="requestData$ | async as requestData">
+    <!--<div *ngIf="requestData">-->
+
+    <h3 class="section-title">
+      Client Information
+    </h3>
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Name
+        </h3>
+        <h3 class="summary-value">
+          {{ clientData.get('id') }}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Email
+        </h3>
+        <h3 class="summary-value">
+          {{ clientData.get('email') }}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <h3 class="section-title">
+      Location Details
+    </h3>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Pickup address
+        </h3>
+        <h3 class="summary-value">
+          {{ requestData.addresses[0]}}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Dropoff address
+        </h3>
+        <h3 class="summary-value">
+          {{ requestData.addresses[1]}}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Total distance
+        </h3>
+        <h3 class="summary-value">
+          {{ requestData.distance | number:'1.0-1'}} miles
+        </h3>
+      </ion-label>
+    </ion-item>
+
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Start time
+        </h3>
+        <h3 class="summary-value">
+          {{ requestData.date }} {{ requestData.time }}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <h3 class="section-title">
+      Item Details
+    </h3>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Description
+        </h3>
+        <h3 class="summary-value">
+          {{ requestData.description }}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Weight
+        </h3>
+        <h3 class="summary-value">
+          {{ requestData.weight }} lbs.
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Has hardwood floors?
+        </h3>
+        <h3 class="summary-value">
+          {{ requestData.hasHardwood }}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Item requires breakdown?
+        </h3>
+        <h3 class="summary-value">
+          {{ requestData.requiresBreakdown }}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Can an elevator be used?
+        </h3>
+        <h3 class="summary-value">
+          {{ requestData.canUseElevator }}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Helper
+        </h3>
+        <h3 class="summary-value">
+          {{ requestData.needHelper }}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Additional comments
+        </h3>
+        <h3 class="summary-value">
+          {{ requestData.comments }}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+
+    <h3 class="section-title">
+      Pricing
+    </h3>
+
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Total price
+        </h3>
+        <h3 class="summary-value">
+          {{ requestData.totalPrice | currency:'USD':'symbol':'1.0-2' }}
+        </h3>
+      </ion-label>
+    </ion-item>
+  </div>
+
+  <div class="progress-wrapper" *ngIf="maxVal">
+    <div class="text" *ngIf="!isFinished">
+      {{ timerMax - timerCurrent | number: '1.0-0'}}
+    </div>
+
+
+    <round-progress
+      [max]="maxVal"
+      [current]="currentVal"
+      [radius]="30"
+      [stroke]="10"
+      [duration]="800"
+      [responsive]="false"
+      [semicircle]="false"
+      [rounded]="true">
+    </round-progress>
+
+    <div class="text" *ngIf="isFinished">
+      Rejected
+    </div>
+
+  </div>
+
+
+  <div class="accept-reject-button" *ngIf="jobAcceptPage">
+    <ion-row>
+      <ion-col width-50>
+        <button ion-button block class="accept" [disabled]="timerFinished" (click)="setAccept()">
+          Accept
+        </button>
+      </ion-col>
+      <ion-col width-50>
+        <button ion-button block class="reject" [disabled]="timerFinished" (click)="setReject()">
+          Reject
+        </button>
+      </ion-col>
+    </ion-row>
+  </div>
+
+</ion-content>
+

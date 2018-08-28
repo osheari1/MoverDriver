@@ -1,0 +1,195 @@
+<!--
+  Generated template for the JobDetailsSkeletonPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title> {{ 'JOB_DETAILS' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="forms-content">
+  <div *ngIf="data$ | async as data">
+    <!--<div *ngIf="requestData">-->
+
+    <h3 class="section-title">
+      Client Information
+    </h3>
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Name
+        </h3>
+        <h3 class="summary-value">
+          {{ clientData.get('id') }}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Email
+        </h3>
+        <h3 class="summary-value">
+          {{ clientData.get('email') }}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <h3 class="section-title">
+      Location Details
+    </h3>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Pickup address
+        </h3>
+        <h3 class="summary-value">
+          {{ data.addresses[0]}}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Dropoff address
+        </h3>
+        <h3 class="summary-value">
+          {{ data.addresses[1]}}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Total distance
+        </h3>
+        <h3 class="summary-value">
+          {{ data.distance | number:'1.0-1'}} miles
+        </h3>
+      </ion-label>
+    </ion-item>
+
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Start time
+        </h3>
+        <h3 class="summary-value">
+          {{ data.date }} {{ data.time }}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <h3 class="section-title">
+      Item Details
+    </h3>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Description
+        </h3>
+        <h3 class="summary-value">
+          {{ data.description }}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Weight
+        </h3>
+        <h3 class="summary-value">
+          {{ data.weight }} lbs.
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Has hardwood floors?
+        </h3>
+        <h3 class="summary-value">
+          {{ data.hasHardwood }}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Item requires breakdown?
+        </h3>
+        <h3 class="summary-value">
+          {{ data.requiresBreakdown }}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Can an elevator be used?
+        </h3>
+        <h3 class="summary-value">
+          {{ data.canUseElevator }}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Helper
+        </h3>
+        <h3 class="summary-value">
+          {{ data.needHelper }}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Additional comments
+        </h3>
+        <h3 class="summary-value">
+          {{ data.comments }}
+        </h3>
+      </ion-label>
+    </ion-item>
+
+
+    <h3 class="section-title">
+      Pricing
+    </h3>
+
+
+    <ion-item class="summary-item">
+      <ion-label>
+        <h3 class="summary-label">
+          Total price
+        </h3>
+        <h3 class="summary-value">
+          {{ data.totalPrice | currency:'USD':'symbol':'1.0-2' }}
+        </h3>
+      </ion-label>
+    </ion-item>
+  </div>
+
+</ion-content>
+

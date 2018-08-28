@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "117155581860",
+    "firebase_url": "https://mover-b6079.firebaseio.com",
+    "project_id": "mover-b6079",
+    "storage_bucket": "mover-b6079.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117155581860:android:7f0ba40a991be3b3",
+        "android_client_info": {
+          "package_name": "com.mover.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "117155581860-t007jpjkekt84k71afcleb7816dgrim2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYsdm4HHPqfX62F-I2vjqhpfhgg238-38"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
