@@ -54,6 +54,10 @@ export class JobDetailPage {
   }
 
   acceptJob(): void {
+    // Remove pendingDriver from data
+    if (this.requestData.pendingDriver) {
+      delete this.requestData.pendingDriver
+    }
     this.clientDataUnsub();
     this.db.acceptJobRequest(
       this.messageData.requestId,
@@ -119,6 +123,9 @@ export class JobDetailPage {
     return isNaN(this.timerCurrent) || this.timerCurrent < 0 ? 0 : this.timerCurrent;
   }
 
+  ionViewWillLeave() {
+    this.clientDataUnsub();
+  }
 
   ionViewDidLeave() {
     this.db.removePendingDriver(

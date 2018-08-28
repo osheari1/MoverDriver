@@ -4,7 +4,7 @@
   <name>Mover Driver</name>
   <description>Driver app for Mover</description>
   <author email="osheari1@gmail.com" href="https://placeholder.site/">Mover Dev</author>
-  <content src="index.html"/>
+  <content original-src="index.html" src="http://192.168.1.70:8101"/>
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -129,9 +129,9 @@
     <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="Select a picture"/>
   </plugin>
   <allow-navigation href="http://192.168.1.70:8100"/>
-  <engine name="ios" spec="~4.5.0"/>
-  <engine name="android" spec="6.3.0"/>
   <allow-navigation href="http://192.168.1.70:8101"/>
   <allow-navigation href="http://192.168.1.70:8102"/>
   <plugin name="cordova-plugin-fcm-with-dependecy-updated" spec="^2.2.4"/>
+  <engine name="ios" spec="~4.5.0"/>
+  <engine name="android" spec="6.3.0"/>
 </widget>

@@ -187,6 +187,4 @@ export class DatabaseProvider {
   lookupDriverProfile(id): AngularFirestoreDocument<any> {
     return this.afs.doc<any>(`/driverProfile/${id}`);
   }
-
-
 }

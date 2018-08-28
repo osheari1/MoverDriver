@@ -32,6 +32,10 @@ export class JobDetailsSkeletonPage {
     console.log(this.messageData.driverId);
   }
 
+  ionViewWillLeave() {
+    this.clientDataUnsub();
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad JobDetailsSkeletonPage');
 
