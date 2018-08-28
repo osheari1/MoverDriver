@@ -30,7 +30,8 @@ export class JobDetailsSkeletonPage {
     this.messageData = navParams.data;
   }
 
-  ionViewWillLeave() {
+  ionViewDidLeave() {
+    console.log('ionViewDid Leave');
     this.clientDataUnsub();
   }
 

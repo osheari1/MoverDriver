@@ -37,7 +37,7 @@ export class PendingJobsPage {
   }
 
   ionViewWillEnter() {
-    console.log('ionViewDidLoad PendingJobsPage');
+    console.log('ionViewWillEnter PendingJobsPage');
     this.authService.getCurrentUser().then(user => {
       this.driverId = user.uid;
 

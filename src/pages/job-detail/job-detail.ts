@@ -141,7 +141,7 @@ export class JobDetailPage {
   }
 
   ionViewDidLoad() {
-    // TODO: Figure out how to properly unsubscribe from clientRef
+    // TODO: Figure where that error is coming from
     console.log('ionViewDidLoad JobDetailPage');
     this.requestData$ = this.db.queryJobRequestDetails(this.messageData.requestId).valueChanges();
     this.requestData$.subscribe(doc => {
