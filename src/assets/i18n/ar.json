@@ -142,6 +142,7 @@
   "HAS_HARDWOOD": "Is your floor hardwood?",
   "NEED_HELPER": "Will the mover need an Helper?",
   "CAN_USE_ELEVATOR": "Can an elevator be used?",
+  "PICKUP_DATE": "Pickup date",
   "CURRENT_JOBS": "Current Jobs",
   "PENDING_JOBS": "Pending Jobs",
   "JOB_DETAILS": "Job Details"

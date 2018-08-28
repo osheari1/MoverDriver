@@ -33,7 +33,7 @@ export class CurrentJobsPage {
 
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     console.log('ionViewDidLoad CurrentJobsPage');
     this.authService.getCurrentUser().then(user => {
       this.driverId = user.uid;
