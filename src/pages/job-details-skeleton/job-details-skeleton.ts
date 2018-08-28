@@ -28,8 +28,6 @@ export class JobDetailsSkeletonPage {
     public db: DatabaseProvider
   ) {
     this.messageData = navParams.data;
-    console.log(this.messageData.requestId);
-    console.log(this.messageData.driverId);
   }
 
   ionViewWillLeave() {
