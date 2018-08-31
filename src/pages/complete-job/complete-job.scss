@@ -1,0 +1,50 @@
+page-complete-job {
+  ion-header {
+    @include header-styles(color($colors, header-alt, base), color($colors, header-alt, contrast));
+  }
+
+  .content {
+    background-color: color($colors, background, base);
+
+    .list {
+      @include layout-list-styles($theme-color-2, $white-d);
+
+      ion-list {
+        .list-item {
+
+          .content-row {
+            align-items: center;
+          }
+
+          .item-content {
+            align-content: stretch;
+            display: flex;
+            flex-wrap: wrap;
+            align-self: stretch;
+
+            .item-title {
+              margin-bottom: 8px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+
+            .item-description {
+              font-size: 1.5rem;
+            }
+          }
+        }
+      }
+    }
+
+    .complete-button {
+      margin: 0;
+      margin-top: 20px;
+      margin-bottom: 20px;
+
+      @include call-to-action-button-styles(color($colors, button, base), color($colors, button, contrast));
+    }
+
+  }
+
+}

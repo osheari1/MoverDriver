@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { ProfilePage } from '../profile/profile';
 import {CurrentJobsPage} from "../current-jobs/current-jobs";
 import {PendingJobsPage} from "../pending-jobs/pending-jobs";
-import {NavParams} from "ionic-angular";
 
 
 @Component({

@@ -8,7 +8,7 @@ import {
 import {FCM} from '@ionic-native/fcm';
 
 import 'firebase/storage';
-import * as firebase from 'firebase/app';
+// import * as firebase from 'firebase/app';
 
 /*
   Generated class for the DatabaseProvider provider.

@@ -1,11 +1,12 @@
 import {Component} from '@angular/core';
-import {Alert, AlertController, LoadingController, NavController, NavParams, SegmentButton} from 'ionic-angular';
+import {
+  LoadingController, NavController, NavParams, SegmentButton
+} from 'ionic-angular';
 import {FormGroup} from "@angular/forms";
 import {data} from "./data";
 import {CalcUtilsProvider} from "../../providers/calc-utils/calc-utils";
 import {FirebaseAuthService} from "../firebase-integration/firebase-auth.service";
 import {DatabaseProvider} from "../../providers/database/database";
-import {TabsNavigationPage} from "../tabs-navigation/tabs-navigation";
 import * as firebase from 'firebase/app';
 
 /**
@@ -58,7 +59,6 @@ export class EquipmentOptionsPage {
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
     public fAuthService: FirebaseAuthService,
-    public alertCtrl: AlertController,
     public db: DatabaseProvider,
 
   ) {

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import * as firebase from "firebase/app";
+// import * as firebase from "firebase/app";
 import {DatabaseProvider} from "../../providers/database/database";
 import {AngularFirestoreCollection} from "angularfire2/firestore";
 import {map} from "rxjs/operators";

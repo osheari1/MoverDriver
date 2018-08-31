@@ -22,7 +22,6 @@ export class JobDetailsSkeletonPage {
   driverProfile: any;
   driverProfileUnsub: any;
   clientData: any;
-  clientDataUnsub: any;
 
   constructor(
     public navCtrl: NavController,

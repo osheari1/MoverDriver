@@ -2,10 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import {
   Platform,
   MenuController,
-  Nav,
   NavController,
   App,
-  ToastController
 } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -14,7 +12,6 @@ import {FCM} from "@ionic-native/fcm";
 
 import { TabsNavigationPage } from '../pages/tabs-navigation/tabs-navigation';
 import { WalkthroughPage } from '../pages/walkthrough/walkthrough';
-import { FirebaseLoginPage } from '../pages/firebase-integration/firebase-login/firebase-login';
 import {FirebaseAuthService} from "../pages/firebase-integration/firebase-auth.service";
 
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -49,7 +46,6 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public statusBar: StatusBar,
     public translate: TranslateService,
-    public toastCtrl: ToastController,
     public afAuth: AngularFireAuth,
     public authService: FirebaseAuthService,
     public fcm: FCM
