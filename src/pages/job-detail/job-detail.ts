@@ -23,6 +23,7 @@ export class JobDetailPage {
   driverProfile: any;
   clientData: any;
   clientDataUnsub: any;
+  driverDataUnsub: any;
 
   // Timer variables
   timerInterval: number = 1;
@@ -58,12 +59,11 @@ export class JobDetailPage {
     if (this.requestData.pendingDriver) {
       delete this.requestData.pendingDriver
     }
-    this.clientDataUnsub();
+    // this.clientDataUnsub();
     this.db.acceptJobRequest(
       this.messageData.requestId,
       this.messageData.driverId,
-      this.requestData,
-      this.driverProfile
+      this.requestData
     )
   }
 
@@ -125,6 +125,7 @@ export class JobDetailPage {
 
   ionViewWillLeave() {
     this.clientDataUnsub();
+    this.driverDataUnsub();
   }
 
   ionViewDidLeave() {
@@ -154,7 +155,7 @@ export class JobDetailPage {
     });
 
     // Query driver profile
-    this.db.lookupDriverProfile(this.messageData.driverId).valueChanges().subscribe(doc => {
+    this.driverDataUnsub = this.db.lookupDriverProfile(this.messageData.driverId).valueChanges().subscribe(doc => {
       this.driverProfile = doc;
     });
 

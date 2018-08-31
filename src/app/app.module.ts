@@ -13,6 +13,7 @@ import {Camera} from '@ionic-native/camera';
 import {RoundProgressModule} from "angular-svg-round-progressbar";
 
 //pages
+import {CompleteJobPage} from "../pages/complete-job/complete-job";
 import {JobDetailsSkeletonPage} from "../pages/job-details-skeleton/job-details-skeleton";
 import {PendingJobsPage} from "../pages/pending-jobs/pending-jobs";
 import {JobDetailPage} from "../pages/job-detail/job-detail";
@@ -136,6 +137,7 @@ export function createTranslateLoader(http: HttpClient) {
     MyApp,
     ApprovalPage,
     PendingJobsPage,
+    CompleteJobPage,
     JobDetailsSkeletonPage,
     JobDetailPage,
     CurrentJobsPage,
@@ -232,6 +234,7 @@ export function createTranslateLoader(http: HttpClient) {
   entryComponents: [
     MyApp,
     PendingJobsPage,
+    CompleteJobPage,
     JobDetailsSkeletonPage,
     JobDetailPage,
     ApprovalPage,

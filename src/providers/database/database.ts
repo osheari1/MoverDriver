@@ -39,16 +39,40 @@ export class DatabaseProvider {
     });
   }
 
+  // TODO: Figure out where error comes from
+  submitCompleteJob(requestId: string,
+                    driverId: string,
+                    requestData: any): Promise<void> {
+
+    let acceptedDocRef = this.afs.doc(`jobAccept/${requestId}`);
+    let completedDocRef = this.afs.doc(`jobComplete/${requestId}`);
+
+    // Move data to jobComplete data base
+    return completedDocRef.set(requestData, {merge: true}).then(() => {
+      console.log(`Added jobRequest ${requestId} to jobComplete collection.`);
+      // Dereference requestData
+      requestData = null;
+      // Remove entry from jobAccept collection
+      return acceptedDocRef.delete().then(() => {
+        console.log(`Removed jobRequest ${requestId} from jobAccept collection.`);
+      }, err => {
+        console.log('Error occurred in acceptDoc removal.', JSON.stringify(err));
+      });
+    }, err => {
+      console.log('Error occurred in completeDoc set.', JSON.stringify(err));
+    });
+  }
+
+
   // TODO: Optimize update of jobAccepted update
+  // TODO: Turn promise chains into async await calls
   acceptJobRequest(
     requestId: string,
     driverId: string,
-    requestData: any,
-    driverProfile: any
+    requestData: any
   ): Promise<void> {
     // Updates document in case a helper has already accepted
     let acceptedDocRef = this.afs.doc(`jobAccept/${requestId}`);
-    let driverProfileRef = this.afs.doc(`driverProfile/${driverId}`);
     let acceptRejectTimeoutRef = this.afs
       .collection(`acceptRejectTimeout`)
       .doc(`${requestId}`);
@@ -60,22 +84,6 @@ export class DatabaseProvider {
           // Add driverId
           return acceptedDocRef.update({driverId: driverId}).then(() => {
             console.log(`Added jobRequest ${requestId} to jobAccept database.`);
-            // Add accepted job ID to driverProfile
-            // Get current driver profile
-            // Update accepted jobs list
-            let acceptedJobs;
-            if (driverProfile.acceptedJobs) {
-              acceptedJobs = driverProfile.acceptedJobs;
-              acceptedJobs.push(requestId);
-            } else {
-              acceptedJobs = [requestId];
-            }
-            return driverProfileRef.update({acceptedJobs: acceptedJobs})
-              .then(() => {
-                console.log(`Updated acceptedJobs list in driverProfile ${driverId}`);
-              }, err => {
-                console.log('Error occurred in driverProfile set', JSON.stringify(err));
-              });
           }, err => {
             console.log('Error occurred in acceptDoc driverId update.', JSON.stringify(err));
           });
@@ -117,7 +125,6 @@ export class DatabaseProvider {
     }, err => {
       console.log(JSON.stringify(err));
     });
-
   }
 
 

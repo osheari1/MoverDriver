@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {DatabaseProvider} from "../../providers/database/database";
+import {CompleteJobPage} from "../complete-job/complete-job";
 
 /**
  * Generated class for the JobDetailsSkeletonPage page.
@@ -19,6 +20,7 @@ export class JobDetailsSkeletonPage {
   data$: any;
   data: any;
   driverProfile: any;
+  driverProfileUnsub: any;
   clientData: any;
   clientDataUnsub: any;
 
@@ -30,9 +32,21 @@ export class JobDetailsSkeletonPage {
     this.messageData = navParams.data;
   }
 
+  // TODO: Find error after ionViewDidLeave
+  goToCompleteJobPage() {
+    console.log('Triggered goToCompleteJobPage');
+    this.navCtrl.push(
+      CompleteJobPage,
+      {
+        requestId: this.messageData.requestId,
+        driverId: this.messageData.driverId,
+        jobData: this.data
+      }
+    )
+  }
+
   ionViewDidLeave() {
-    console.log('ionViewDid Leave');
-    this.clientDataUnsub();
+    console.log('ionViewDidLeave JobDetailsSkeletonPage');
   }
 
   ionViewDidLoad() {
@@ -49,7 +63,7 @@ export class JobDetailsSkeletonPage {
     });
 
     // Query driver profile
-    this.db.lookupDriverProfile(this.messageData.driverId).valueChanges().subscribe(doc => {
+    this.driverProfileUnsub = this.db.lookupDriverProfile(this.messageData.driverId).valueChanges().subscribe(doc => {
       this.driverProfile = doc;
     });
   }

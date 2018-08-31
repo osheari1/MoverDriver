@@ -53,7 +53,7 @@ page-job-details-skeleton {
           color: $theme-color-2;
           flex: 0 1 76%;
           max-width: 76%;
-          margin: 0px;
+          margin: 0;
 
           &:first-child {
             text-align: left;
@@ -61,6 +61,14 @@ page-job-details-skeleton {
         }
 
       }
+    }
+
+    .complete-button {
+      margin: 0;
+      margin-top: 20px;
+      margin-bottom: 20px;
+
+      @include call-to-action-button-styles(color($colors, button, base), color($colors, button, contrast));
     }
 
     .section-title {
