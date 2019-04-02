@@ -17,7 +17,7 @@ export class TabsNavigationPage {
 
   constructor() {
     this.tab1Root = PendingJobsPage;
-    this.tab2Root = ProfilePage;
+    // this.tab2Root = ProfilePage;
     this.tab3Root = CurrentJobsPage;
   }
 
